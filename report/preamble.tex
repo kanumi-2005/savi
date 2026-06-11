@@ -1,0 +1,105 @@
+\usepackage[margin=1in]{geometry}
+\usepackage[unicode]{hyperref}
+\usepackage{graphicx}
+\usepackage{tikz}
+% \usetikzlibrary{arrows.meta,automata,positioning}
+\usepackage{import}
+\usepackage{apacite}
+\usepackage[inline]{enumitem}
+\usepackage{amsmath,amsfonts,amssymb}
+
+
+\usepackage{polyglossia}
+\setdefaultlanguage{vietnamese}
+\setotherlanguage{english}
+\addto\captionsvietnamese{%
+  \renewcommand{\refname}{Tài liệu tham khảo}%
+}
+
+
+\usepackage{subcaption}
+\captionsetup{subrefformat=parens}
+\usepackage[skip=4pt]{caption}
+\captionsetup*[table]{position=above}
+
+\usepackage{tabularray}
+\DefTblrTemplate{firsthead}{caption}{%
+  \makebox[\tablewidth]{\parbox{\columnwidth}{%
+    \UseTblrTemplate{caption}{normal}%
+  }}%
+}
+\SetTblrTemplate{firsthead}{caption}
+\AtBeginDocument{\renewcommand{\tblrcontfootname}{Còn tiếp trang sau}}
+\AtBeginDocument{\renewcommand{\tblrcontheadname}{(Tiếp theo)}}
+\UseTblrLibrary{varwidth}
+\UseTblrLibrary{diagbox}
+
+
+\usepackage{amsthm}
+\renewcommand{\proofname}{Chứng minh}
+
+\theoremstyle{plain} % default
+\newtheorem{thm}{Định lý}[section]
+\newtheorem{lem}[thm]{Bổ đề}
+\newtheorem{prop}[thm]{Mệnh đề}
+\newtheorem{cor}[thm]{Hệ quả}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Định nghĩa}
+\newtheorem{exmp}[thm]{Ví dụ}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Nhận xét}
+
+
+\newcommand{\resourcespath}{resources}
+\newcommand{\figurespath}{\resourcespath/figures}
+\newcommand{\imagespath}{\figurespath}
+\graphicspath{{\figurespath}}
+\newcommand{\tablespath}{\resourcespath/tables}
+
+% Terminology config
+\ExplSyntaxOn
+
+\msg_new:nnn { report } { missing-term }
+  { warning:~the~term~'#1'~is~not~defined! }
+
+\cs_new:Nn \report_apply_case:nn {
+  \str_case_e:nnF { #1 }
+    {
+      { \text_uppercase:n { #1 } } { \text_uppercase:n { #2 } }
+      { \text_lowercase:n { #1 } } { #2 }
+      { \text_titlecase_first:n { \text_lowercase:n {#1} } }
+        { \text_titlecase_first:n { #2 } }
+      { \text_titlecase_all:n { \text_lowercase:n {#1} } }
+        { \text_titlecase_all:n { #2 } }
+    }
+    { #1 }
+}
+
+\cs_new:Nn \report_handle_tr:nn {
+  \cs_if_exist:cTF { \text_lowercase:n {#1}-#2 }
+    { \report_apply_case:nn { #1 } { \use:c { \text_lowercase:n {#1}-#2 } } }
+    {
+      \msg_warning:nne { report } { missing-term }
+      { \text_lowercase:n {#1}-#2 }
+      #1
+    }
+}
+
+\NewExpandableDocumentCommand{\tr}{ O{vn} m }
+  {
+    \texorpdfstring
+     { \report_handle_tr:nn {#2} {#1} }
+     { \text_purify:n { \report_handle_tr:nn {#2} {#1} } }
+  }
+
+\NewDocumentCommand{\trdef}{ O{vn} m m }
+{
+  \exp_args:Nc \tl_set:Nn {#2-#1} {#3}
+}
+
+\ExplSyntaxOff
+
+\DeclareMathOperator{\expect}{\mathbb{E}}
+\DeclareMathOperator{\prob}{\mathbb{P}}
