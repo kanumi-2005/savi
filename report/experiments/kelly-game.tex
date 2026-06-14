@@ -1,0 +1,48 @@
+\subsection{Kelly game}
+
+Trong thí nghiệm này, ta mô phỏng Kelly game với một đồng xu lệch có
+xác suất ra mặt ngửa là $p=0.6$. Ở mỗi vòng chơi, người chơi cược
+một tỉ lệ $\lambda$ tài sản hiện có vào mặt ngửa. Nếu kết quả là
+ngửa thì tài sản được nhân với $1+\lambda$, còn nếu kết quả là sấp
+thì tài sản được nhân với $1-\lambda$.
+
+Mục tiêu của thí nghiệm là kiểm tra hai kết quả. Thứ nhất, tỉ lệ
+cược tối ưu tìm được từ mô phỏng có trùng với nghiệm Kelly lý thuyết
+hay không. Với $p=0.6$, nghiệm Kelly là $\lambda^*=2(p-0.5)=0.2$.
+Thứ hai, tốc độ tăng trưởng log tại nghiệm Kelly có gần với giá trị
+relative entropy $H(p\mid 0.5)$ hay không. Trong trường hợp này,
+$H(0.6\mid 0.5)=0.02014$.
+
+Ta sinh một chuỗi gồm $T=1000000$ lần tung xu độc lập. Sau đó, ta
+thử nhiều giá trị $\lambda$ trong khoảng $[0,0.999]$. Với mỗi giá trị
+$\lambda$, ta tính tốc độ tăng trưởng log trung bình của tài sản và
+chọn giá trị $\lambda$ cho tốc độ tăng trưởng lớn nhất.
+
+Kết quả mô phỏng cho thấy nghiệm tốt nhất tìm được là
+$\lambda_{\mathrm{sim}}=0.2$, trùng với nghiệm Kelly lý thuyết
+$\lambda^*=0.2$. Sai khác giữa hai giá trị chỉ là
+$5.55\times 10^{-17}$ rất nhỏ.
+
+Tốc độ tăng trưởng log mô phỏng tại nghiệm Kelly là $0.02021$, trong
+khi giá trị lý thuyết $H(0.6\mid 0.5)$ là $0.02014$. Sai khác giữa
+hai giá trị là $7.83\times 10^{-5}$ rất nhỏ.
+
+\figurename~\ref{fig:kelly-game} minh họa tốc độ tăng trưởng log trung bình
+theo tỉ lệ cược $\lambda$. Đường liền biểu diễn kết quả mô phỏng,
+đường nét đứt biểu diễn nghiệm Kelly $\lambda^*=0.2$, đường chấm
+biểu diễn nghiệm tốt nhất tìm được từ mô phỏng, và đường gạch chấm
+ngang biểu diễn giá trị $H(p\mid 0.5)$. Ta thấy đường tốc độ tăng
+trưởng log đạt cực đại tại $\lambda=0.2$, đồng thời giá trị cực đại
+trong mô phỏng rất gần với giá trị relative entropy lý thuyết.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{kelly-game.png}
+  \caption{Tốc độ tăng trưởng log trung bình theo tỉ lệ cược
+  $\lambda$ trong Kelly game với $p=0.6$ và $T=1000000$.}
+  \label{fig:kelly-game}
+\end{figure}
+
+Kết quả trên xác nhận cả hai nội dung cần kiểm tra. Tỉ lệ cược tối ưu
+tìm được trong mô phỏng trùng với nghiệm Kelly, và tốc độ tăng
+trưởng log tại nghiệm Kelly xấp xỉ $H(p\mid 0.5)$.
