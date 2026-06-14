@@ -1,0 +1,131 @@
+\subsection{Confidence sequence cho quantile}
+
+Trong thí nghiệm này, ta khảo sát confidence sequence cho quantile
+trên phân phối Cauchy chuẩn. Phân phối Cauchy được chọn vì đây là
+một phân phối có đuôi nặng, nên các quan sát cực trị có thể xuất
+hiện với giá trị rất lớn. Tuy nhiên, các quantile của phân phối
+Cauchy vẫn tồn tại, do đó phương pháp dựa trên quantile vẫn có thể
+được áp dụng.
+
+Ta sinh tuần tự $T=100000$ quan sát độc lập từ phân phối
+Cauchy chuẩn. Tại mỗi thời điểm $t$, ta chỉ sử dụng $t$ quan sát
+đầu tiên để xây dựng khoảng tin cậy. Trong thí nghiệm này, ta chọn
+mức ý nghĩa $\alpha=0.05$, tương ứng với mức tin cậy
+$1-\alpha=0.95$.
+
+Trước hết, ta xét bài toán xây dựng confidence sequence cho một
+quantile cố định, cụ thể là quantile mức $p=0.9$. Với trường hợp này,
+độ rộng sai số được chọn là
+\begin{equation}
+u_t=\sqrt{\frac{0.73\log\log(2.04t)+0.52\log(9.97/\alpha)}{t}}.
+\end{equation}
+Khi đó, tại mỗi thời điểm $t$, khoảng confidence sequence cho
+quantile $Q(0.9)$ được cho bởi
+\begin{equation}
+\left[\widehat Q_t(0.9-u_t),\widehat Q_t(0.9+u_t)\right].
+\end{equation}
+
+Bên cạnh confidence sequence cho một quantile cố định, ta cũng xét
+trường hợp mạnh hơn, trong đó khoảng tin cậy cần đúng đồng thời cho
+mọi thời điểm $t$ và mọi mức quantile $p\in(0,1)$. Khi đó, độ rộng
+sai số được chọn là
+\begin{equation}
+u_t=\sqrt{\frac{\log\log(et)+0.75\log(34/\alpha)}{t}}.
+\end{equation}
+
+\figurename~\ref{fig:confidence-sequence} minh họa hai kết quả chính của thí
+nghiệm. Ở phía bên trái, hình biểu diễn hai cận của confidence
+sequence cho quantile $0.9$ theo số mẫu $t$. Đường chấm ngang biểu
+diễn quantile thật $Q(0.9)$. Ta thấy hai cận dần thu hẹp quanh
+quantile thật khi số mẫu tăng. Ở phía bên phải, hình biểu diễn
+confidence band cho toàn bộ hàm phân phối tích lũy tại ba thời điểm
+$t=100$, $t=1000$ và $t=10000$. Khi $t$ tăng, confidence band hẹp
+dần và tiến gần hơn đến CDF thật.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{confidence-sequence.png}
+    \caption{Confidence sequence cho quantile $0.9$ và confidence
+    band cho toàn bộ CDF trên dữ liệu sinh từ Cauchy chuẩn.}
+    \label{fig:confidence-sequence}
+\end{figure}
+
+\tablename~\ref{tab:quantile-coverage} trình bày kết quả định lượng cho
+quantile $0.9$ tại các mốc $t=100$, $t=1000$, $t=10000$ và
+$t=100000$. Cột cuối cho biết khoảng confidence sequence tại thời
+điểm tương ứng có chứa quantile thật hay không. Tại tất cả các mốc
+được kiểm tra, quantile thật $Q(0.9)$ đều nằm trong khoảng
+confidence sequence. Khi số mẫu tăng từ $100$ lên $100000$, độ rộng
+của khoảng giảm rõ rệt. Ở $t=100$, khoảng còn khá rộng, từ $1.0766$
+đến $10.6478$. Đến $t=100000$, khoảng đã thu hẹp còn từ $2.8514$
+đến $3.2892$.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Kiểm tra định lượng confidence sequence cho quantile
+  $0.9$ của phân phối Cauchy$(0,1)$.}
+  \label{tab:quantile-coverage}
+
+  \begin{tblr}{
+    width=\textwidth,
+    colspec={cccccc},
+    rowhead = 1,
+    hlines,
+    vlines
+  }
+    $t$ & $u_t$ & cận dưới & true $Q(0.9)$ & cận trên & covered \\
+    100 & 0.1993 & 1.0766 & 3.0777 & 10.6478 & True \\
+    1000 & 0.0651 & 1.8955 & 3.0777 & 11.0662 & True \\
+    10000 & 0.0210 & 2.5256 & 3.0777 & 3.9465 & True \\
+    100000 & 0.0068 & 2.8514 & 3.0777 & 3.2892 & True \\
+  \end{tblr}
+\end{table}
+
+Ngoài việc kiểm tra trên một chuỗi dữ liệu cố định, ta cũng lặp lại
+thí nghiệm nhiều lần để ước lượng xác suất bao phủ. Với mỗi lần lặp,
+ta sinh một chuỗi dữ liệu mới và kiểm tra xem khoảng confidence
+sequence có chứa quantile thật tại tất cả các thời điểm trong lưới
+$t$ hay không. Tỉ lệ các lần kiểm tra thành công được dùng làm ước
+lượng thực nghiệm cho xác suất bao phủ.
+
+Đối với trường hợp một quantile cố định, ta kiểm tra quantile mức
+$p=0.9$ với $100$ mốc số mẫu t. Đối với trường hợp đồng thời cho mọi
+quantile, ta không thể kiểm tra trực tiếp vô hạn mọi mức $p\in(0,1)$ và
+mọi thời điểm $t\in\mathbb{N}$. Do đó, trong mô phỏng, ta kiểm tra trên
+một lưới hữu hạn gồm $99$ mức quantile từ $0.01$ đến $0.99$ và $50$ mốc
+số mẫu $t$.
+
+\tablename~\ref{tab:coverage-estimation} trình bày kết quả ước lượng bao phủ.
+Cả hai trường hợp đều đạt bao phủ thực nghiệm bằng $1.0$, tức là cả $300$ lần
+lặp đều thành công. Kết quả này lớn hơn mức bao phủ mục tiêu $0.95$.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Ước lượng xác suất bao phủ bằng $300$ lần mô phỏng
+  độc lập trên phân phối Cauchy$(0,1)$.}
+  \label{tab:coverage-estimation}
+
+  \begin{tblr}{
+    width=\textwidth,
+    colspec={X[1.6,l] X[1,c] X[1,c] X[1,c]},
+    rowhead = 1,
+    hlines,
+    vlines
+  }
+    Trường hợp & target & estimated & success / trials \\
+    Fixed quantile $p=0.9$ & 0.95 & 1.00 & 300 / 300 \\
+    All quantiles & 0.95 & 1.00 & 300 / 300 \\
+  \end{tblr}
+\end{table}
+
+Kết quả trên phù hợp với bảo đảm lý thuyết của confidence sequence.
+Tại các mốc số mẫu được kiểm tra, quantile thật $Q(0.9)$ đều nằm
+trong khoảng tin cậy. Khi số mẫu $t$ tăng thì $u_t$ giảm, nên khoảng
+tin cậy hẹp dần. Ban đầu cận trên có thể lớn do phân phối Cauchy có
+đuôi nặng, nhưng khi có thêm dữ liệu, khoảng tin cậy tiến gần hơn
+quanh quantile thật.
+
+Kết quả mô phỏng lặp lại cũng cho thấy xác suất bao phủ thực nghiệm
+không thấp hơn mức mục tiêu $1-\alpha=0.95$. Cụ thể, cả trường hợp
+fixed quantile và all quantiles đều đạt $300/300$ lần thành công
+trong thí nghiệm này.
