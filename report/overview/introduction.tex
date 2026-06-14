@@ -1,0 +1,73 @@
+\subsection{Giới thiệu}
+
+Trong khoa học, mục tiêu cốt lõi của nghiên cứu là xây dựng và kiểm chứng các
+giả thuyết về thế giới thực. Theo triết gia khoa học Karl Popper, một
+lý thuyết hoặc giả thuyết khoa học phải là một phát biểu có thể được kiểm chứng
+bằng dữ liệu thực nghiệm. Nếu một giả thuyết không thể bị bác bỏ hoặc không thể
+được kiểm tra một cách hợp lý thông qua quan sát và thí nghiệm, thì nó không
+được xem là một giả thuyết khoa học. Quan điểm này đã đưa dữ liệu,
+xác suất và thống kê trở thành những thành phần trung tâm của
+phương pháp khoa học hiện đại.
+
+Sau khi xây dựng một giả thuyết khoa học, người nghiên cứu thường chuyển nó
+thành các giả thuyết thống kê có thể kiểm định được. Khi đó, câu hỏi
+đặt ra là: làm thế nào để kiểm định một giả thuyết thống kê? Trong thống kê cổ
+điển, quá trình này có thể được xem như một dạng chứng minh phản chứng
+ngẫu nhiên (stochastic proof by contradiction). Cụ thể, ta giả định
+rằng giả thuyết không ($H_0$) là đúng, sau đó thiết kế thí nghiệm và
+thu thập dữ liệu. Nếu dữ liệu quan sát được quá bất thường dưới giả định $H_0$,
+ta bác bỏ giả thuyết không và kết luận rằng đã tìm thấy bằng chứng cho một khám
+phá mới.
+
+Trong nhiều thập kỷ, bằng chứng chống lại giả thuyết không chủ yếu được đo
+lường bằng p-value. Tuy nhiên, cách tiếp cận này thường giả
+định kích thước mẫu cố định trước khi thu thập dữ liệu. Trong khi đó,
+các ứng dụng hiện đại như thí nghiệm trực tuyến, thử nghiệm lâm sàng thích
+nghi, hệ thống học máy và phân tích dữ liệu thời gian thực thường tạo ra dữ
+liệu theo cách tuần tự (sequential). Trong những tình huống này, việc
+dừng thí nghiệm tùy ý (optional stopping) hoặc kiểm định lặp
+đi lặp lại có thể làm mất tính hợp lệ của các phương pháp suy luận truyền
+thống.
+
+Để giải quyết những hạn chế trên, khuôn khổ Sequential
+Anytime-Valid Inference (SAVI) đã được phát triển nhằm xây dựng các phương
+pháp suy luận vẫn duy trì được tính đúng đắn tại mọi thời điểm dừng quan sát.
+SAVI cho phép dữ liệu được theo dõi liên tục mà không làm gia tăng xác
+suất sai lầm loại I (Type-I error), đồng thời cung cấp các công cụ đo
+lường bằng chứng có khả năng thích ứng với môi trường dữ liệu tuần tự.
+
+Một ý tưởng trung tâm của SAVI là diễn giải việc kiểm định giả thuyết dưới góc
+nhìn cá cược (betting) hoặc đánh cược
+(gambling) chống lại giả thuyết không. Thay vì chỉ tính toán xác suất
+quan sát dữ liệu dưới giả thuyết $H_0$, ta tưởng tượng một người chơi liên tục
+đặt cược dựa trên dữ liệu thu được. Nếu người chơi có thể làm gia tăng tài sản
+của mình một cách đáng kể khi đặt cược chống lại $H_0$, thì sự tăng trưởng đó
+được xem là bằng chứng chống lại giả thuyết không. Theo nghĩa này, việc bác bỏ
+một giả thuyết tương đương với việc ``kiếm tiền'' bằng cách cá cược chống lại
+giả thuyết đó.
+
+Về mặt toán học, cách tiếp cận này được xây dựng dựa trên các
+test martingale, tức các martingale không âm bắt đầu từ giá
+trị 1. Từ đó xuất hiện khái niệm e-value và
+e-process, đóng vai trò như những thước đo bằng chứng thay
+thế cho p-value trong thống kê cổ điển. Các công cụ này tạo thành nền tảng của
+SAVI và cho phép thực hiện kiểm định giả thuyết hợp lệ dưới các chiến lược thu
+thập dữ liệu linh hoạt.
+
+Một điểm đáng chú ý là cách nhìn nhận dựa trên cá cược tạo ra cầu nối tự nhiên
+giữa nhiều lĩnh vực nghiên cứu khác nhau. Từ Lý thuyết thông tin
+(Information Theory), nơi xuất hiện các khái niệm như
+entropy, độ phân kỳ Kullback--Leibler (KL divergence) và
+tiêu chuẩn Kelly; đến Xác suất và Tài chính toán học với
+martingale và quá trình vốn; hay Học trực tuyến và
+Tối ưu hóa với các bài toán dự đoán tuần tự và tối thiểu hóa regret. Do đó,
+Game-theoretic Statistics không chỉ cung cấp một nền tảng mới
+cho suy luận thống kê mà còn thống nhất nhiều ý tưởng quan trọng trong học máy,
+tài chính và lý thuyết thông tin.
+
+Trong báo cáo này, chúng tôi sẽ lần lượt giới thiệu khái niệm SAVI,
+trình bày cách kiểm định giả thuyết bằng cá cược, phân tích
+tiêu chuẩn Kelly và tính tối ưu logarit, sau đó giới thiệu
+các khái niệm cốt lõi như e-value, e-process và các
+chiến lược cá cược tối ưu trong khuôn khổ Game-theoretic
+Statistics.
