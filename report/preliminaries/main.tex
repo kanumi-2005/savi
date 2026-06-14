@@ -1,0 +1,71 @@
+\section{Kiến thức nền}
+
+Tutorial này sử dụng nhiều khái niệm của lý thuyết xác suất, lý thuyết
+độ đo và thống kê toán học. Trong phần này, chúng tôi tóm tắt các kiến
+thức cần thiết để thuận tiện cho việc trình bày các nội dung tiếp theo.
+
+\subsection{Không gian xác suất}
+
+Một không gian xác suất được ký hiệu bởi
+$(\Omega, \mathcal{F}, P)$, trong đó $\Omega$ là không gian mẫu,
+$\mathcal{F}$ là $\sigma$-đại số các biến cố và
+$P : \mathcal{F} \to [0,1]$ là một độ đo xác suất thỏa mãn
+$P(\Omega)=1$.
+
+Một biến ngẫu nhiên là ánh xạ đo được
+$X : \Omega \rightarrow \mathbb{R}$.
+Kỳ vọng của $X$ theo phân phối $P$ được ký hiệu là
+$\mathbb{E}_P[X]$.
+
+\subsection{Kỳ vọng có điều kiện và filtration}
+
+Cho một dãy thông tin tăng dần
+$\mathcal{F}_1 \subseteq \mathcal{F}_2 \subseteq \cdots$,
+ta gọi $(\mathcal{F}_t)_{t\ge1}$ là một filtration.
+Filtration mô tả toàn bộ thông tin mà người quan sát có được theo thời
+gian.
+
+Kỳ vọng có điều kiện
+$\mathbb{E}[X \mid \mathcal{F}_t]$
+được sử dụng để biểu diễn giá trị kỳ vọng của $X$ khi đã biết toàn bộ
+thông tin tại thời điểm $t$.
+
+\subsection{Martingale}
+
+Một dãy biến ngẫu nhiên
+$(M_t)_{t\ge0}$ thích nghi với filtration
+$(\mathcal{F}_t)$ được gọi là martingale nếu
+\[
+\mathbb{E}[M_t \mid \mathcal{F}_{t-1}]
+= M_{t-1},
+\]
+với mọi $t \ge 1$.
+
+Martingale thường được diễn giải như một trò chơi công bằng và đóng vai
+trò nền tảng trong việc xây dựng các phương pháp suy luận tuần tự.
+Ngoài ra, supermartingale là trường hợp
+\[
+\mathbb{E}[M_t \mid \mathcal{F}_{t-1}]
+\le M_{t-1}.
+\]
+
+\subsection{Một số kết quả của thống kê toán học}
+
+Trong tutorial này, dữ liệu thường được giả sử là độc lập và cùng phân
+phối (i.i.d.). Hai kết quả cơ bản được sử dụng là Luật số lớn và Định
+lý giới hạn trung tâm, cho phép nghiên cứu hành vi tiệm cận của các
+ước lượng thống kê.
+
+Bên cạnh đó, phân kỳ Kullback--Leibler
+\[
+D_{\KL}(P, Q)
+=
+\mathbb{E}_P
+\left[
+\log
+\frac{dP}{dQ}
+\right]
+\]
+được dùng để đo mức độ khác biệt giữa hai phân phối xác suất và có mối
+liên hệ chặt chẽ với lý thuyết thông tin cũng như các chiến lược cá
+cược tối ưu.
