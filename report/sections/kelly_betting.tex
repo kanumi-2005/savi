@@ -1,0 +1,137 @@
+\subsection{Cược Kelly và Tính Tối Ưu Logarit}
+
+Một ví dụ kinh điển kết nối giữa lý thuyết cá cược, lý thuyết thông tin và suy luận tuần tự là tiêu chuẩn Kelly (Kelly criterion). Giả sử ta quan sát một chuỗi các lần tung đồng xu độc lập và cùng phân phối (i.i.d.), trong đó xác suất xuất hiện mặt ngửa là $p > 1/2$ và giá trị $p$ được giả định là đã biết.
+
+Người chơi bắt đầu với tài sản ban đầu bằng $1$ đô la. Tại mỗi vòng, người chơi có thể đặt cược một tỷ lệ $\lambda \in [0,1]$ của tổng tài sản hiện tại vào kết quả mặt ngửa. Nếu đồng xu xuất hiện mặt ngửa, số tiền cược được nhân đôi; ngược lại, người chơi mất toàn bộ phần đã cược.
+
+Ký hiệu
+\[
+B_i =
+\begin{cases}
+1, & \text{nếu lần tung thứ } i \text{ là mặt ngửa},\\
+-1, & \text{nếu lần tung thứ } i \text{ là mặt sấp}.
+\end{cases}
+\]
+
+Khi đó, tài sản sau $t$ vòng được biểu diễn bởi
+
+\[
+W_t(\lambda)
+=
+\prod_{i=1}^{t}
+\left(1+\lambda B_i\right).
+\]
+
+Lấy logarit hai vế,
+
+\[
+\log W_t(\lambda)
+=
+\sum_{i=1}^{t}
+\log\left(1+\lambda B_i\right).
+\]
+
+Theo luật số lớn,
+
+\[
+\frac{1}{t}\log W_t(\lambda)
+\to
+\mathbb{E}
+\big[
+\log(1+\lambda B)
+\big]
+\qquad
+\text{khi }
+t\to\infty.
+\]
+
+Do đó, Kelly đề xuất lựa chọn tỷ lệ cược $\lambda$ sao cho tốc độ tăng trưởng logarit dài hạn của tài sản là lớn nhất:
+
+\[
+\lambda^*
+=
+\arg\max_{\lambda}
+\mathbb{E}
+\big[
+\log(1+\lambda B)
+\big].
+\]
+
+Ta có
+
+\[
+\mathbb{E}
+\big[
+\log(1+\lambda B)
+\big]
+=
+p\log(1+\lambda)
++
+(1-p)\log(1-\lambda).
+\]
+
+Lấy đạo hàm theo $\lambda$ và cho bằng $0$,
+
+\[
+\frac{p}{1+\lambda}
+-
+\frac{1-p}{1-\lambda}
+=
+0,
+\]
+
+suy ra nghiệm tối ưu
+
+\[
+\lambda^*
+=
+2p-1
+=
+2\left(p-\frac12\right).
+\]
+
+Kết quả này cho thấy tỷ lệ vốn nên đặt cược tỷ lệ thuận với mức độ lợi thế của người chơi so với trò chơi công bằng ($p=1/2$). Nếu $p=1/2$ thì $\lambda^*=0$, nghĩa là không nên đặt cược; ngược lại, khi $p$ càng lớn thì nên đặt cược một phần tài sản lớn hơn.
+
+Thay $\lambda^*$ vào biểu thức tài sản, ta thu được
+
+\[
+W_t(\lambda^*)
+=
+\exp
+\Big(
+t\,H(p\|1/2)
++
+o(t)
+\Big),
+\]
+
+trong đó $H(p\|1/2)$ là độ lệch tương đối (relative entropy) hay phân kỳ Kullback--Leibler giữa phân phối Bernoulli$(p)$ và Bernoulli$(1/2)$:
+
+\[
+H(p\|1/2)
+=
+p\log(2p)
++
+(1-p)\log\big(2(1-p)\big).
+\]
+
+Tương đương,
+
+\[
+\lim_{t\to\infty}
+\frac{\mathbb{E}[\log W_t(\lambda^*)]}{t}
+=
+H(p\|1/2).
+\]
+
+Kết quả trên cho thấy tốc độ tăng trưởng tối ưu của tài sản chính là lượng thông tin mà phân phối thật Bernoulli$(p)$ chứa so với giả thuyết đồng xu công bằng Bernoulli$(1/2)$. Đây là cầu nối quan trọng giữa lý thuyết thông tin và lý thuyết cá cược.
+
+Ngoài việc tối ưu hóa tốc độ tăng trưởng logarit dài hạn của tài sản, tiêu chuẩn Kelly còn được chứng minh là tối ưu tiệm cận đối với nhiều tiêu chí khác, chẳng hạn như:
+
+\begin{itemize}
+    \item Tối thiểu hóa thời gian kỳ vọng để đạt tới một ngưỡng tài sản cho trước.
+    \item Tối đa hóa tài sản kỳ vọng tại một thời điểm xác định.
+    \item Là nền tảng cho các test martingale và e-process trong suy luận tuần tự anytime-valid.
+\end{itemize}
+
+Chính mối liên hệ này đã khiến tiêu chuẩn Kelly trở thành một trong những viên gạch nền tảng của thống kê theo hướng game-theoretic và phương pháp Sequential Anytime-Valid Inference (SAVI).

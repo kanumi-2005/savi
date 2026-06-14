@@ -1,0 +1,128 @@
+```latex
+\subsection{ Suy luận Hợp lệ Toàn thời gian Tuần tự (SAVI)}
+
+Trong thống kê cổ điển, kiểm định giả thuyết thường được thực hiện thông qua
+\textbf{p-value}. Giả sử $P(n)$ là p-value được tính từ $n$ mẫu đầu tiên
+(ví dụ từ kiểm định t-test) và mức ý nghĩa được chọn là $\alpha$.
+Dưới giả thuyết không ($H_0$), p-value thỏa mãn
+
+\[
+\Pr(P(n)\leq \alpha)\leq \alpha,
+\]
+
+nghĩa là xác suất mắc sai lầm loại I (false positive) không vượt quá $\alpha$
+khi kích thước mẫu $n$ được xác định trước.
+
+Tuy nhiên, trong nhiều ứng dụng hiện đại, dữ liệu không được thu thập một lần mà xuất hiện theo thời gian. Nhà nghiên cứu thường xuyên kiểm tra kết quả trong quá trình thu thập dữ liệu và quyết định dừng hoặc tiếp tục thí nghiệm dựa trên những gì đã quan sát được. Gọi $\tau$ là thời điểm dừng của thí nghiệm. Khi đó, ta quan tâm đến xác suất
+
+\[
+\Pr(P(\tau)\leq \alpha).
+\]
+
+Đáng tiếc là nói chung
+
+\[
+\Pr(P(\tau)\leq \alpha)\nleq \alpha.
+\]
+
+Nói cách khác, tính hợp lệ của p-value không còn được đảm bảo khi thời điểm dừng phụ thuộc vào dữ liệu.
+
+Một ví dụ điển hình là chiến lược
+
+\[
+\tau
+=
+\min
+\left\{
+n\in\mathbb{N}:P(n)\leq \alpha
+\right\},
+\]
+
+tức là tiếp tục thu thập dữ liệu cho đến khi p-value trở nên có ý nghĩa thống kê. Trong trường hợp này, xác suất bác bỏ sai giả thuyết không có thể lớn hơn rất nhiều so với mức $\alpha$ mong muốn, thậm chí tiến gần đến 1 nếu quá trình thu thập dữ liệu được kéo dài đủ lâu.
+
+Hiện tượng này được gọi là \textbf{optional stopping},
+\textbf{optional continuation} hoặc \textbf{peeking at p-values}.
+Nhà nghiên cứu liên tục theo dõi kết quả, sau đó quyết định dừng lại ngay khi xuất hiện bằng chứng có lợi cho giả thuyết nghiên cứu. Một trường hợp nổi tiếng là tranh cãi về \textit{power posing} liên quan đến Amy Cuddy và Dana Carney, nơi việc phân tích dữ liệu lặp lại nhiều lần đã làm dấy lên những nghi ngờ về độ tin cậy của kết quả nghiên cứu.
+
+Vấn đề này không chỉ xuất hiện với p-value mà còn xảy ra đối với \textbf{khoảng tin cậy} (confidence intervals). Nếu nhà nghiên cứu liên tục kiểm tra xem giá trị 0 có còn nằm trong khoảng tin cậy $(1-\alpha)$ hay không và dừng lại khi 0 bị loại khỏi khoảng, tỷ lệ dương tính giả cũng sẽ tăng vượt xa mức ý nghĩa đã công bố.
+
+\paragraph{Hạn chế của khoảng tin cậy truyền thống}
+
+Vấn đề không chỉ xuất hiện đối với p-value mà còn xảy ra với
+\textbf{khoảng tin cậy} (\textit{confidence interval}).
+Giả sử $(L^{(n)},U^{(n)})$ là khoảng tin cậy mức $(1-\alpha)$
+được xây dựng từ $n$ quan sát đầu tiên nhằm ước lượng tham số $\theta$.
+
+Khi kích thước mẫu $n$ được cố định trước, khoảng tin cậy thỏa mãn tính chất bao phủ
+
+\[
+\Pr\!\left(
+\theta \in \left(L^{(n)},U^{(n)}\right)
+\right)
+\geq 1-\alpha,
+\qquad \forall n\geq 1.
+\]
+
+Nói cách khác, xác suất để khoảng tin cậy chứa giá trị thật của tham số
+ít nhất bằng $1-\alpha$.
+
+Tuy nhiên, nếu thời điểm dừng của thí nghiệm là một biến ngẫu nhiên $\tau$
+phụ thuộc vào dữ liệu quan sát được, chẳng hạn
+
+\[
+\tau
+=
+\min
+\left\{
+n\in\mathbb{N}:L^{(n)}>0
+\right\},
+\]
+
+tức là tiếp tục thu thập dữ liệu cho đến khi cận dưới của khoảng tin cậy
+lớn hơn 0, thì tính chất bao phủ nói trên không còn được đảm bảo.
+
+Cụ thể,
+
+\[
+\Pr\!\left(
+\theta \in \left(L^{(\tau)},U^{(\tau)}\right)
+\right)
+\ngeq 1-\alpha.
+\]
+
+Trong nhiều trường hợp, xác suất bao phủ thực tế có thể giảm mạnh,
+thậm chí tiến gần về 0. Điều này cho thấy khoảng tin cậy cổ điển cũng
+không còn đáng tin cậy khi nhà nghiên cứu liên tục theo dõi dữ liệu và
+quyết định dừng thí nghiệm dựa trên kết quả quan sát được.
+
+Do đó, cả \textbf{p-value} lẫn \textbf{khoảng tin cậy truyền thống}
+đều mất tính hợp lệ dưới \textit{optional stopping} và
+\textit{continuous monitoring}. Đây chính là động lực thúc đẩy sự phát triển của
+\textbf{Sequential Anytime-Valid Inference (SAVI)},
+một khuôn khổ suy luận thống kê được thiết kế để duy trì tính hợp lệ
+ở mọi thời điểm dừng của quá trình thu thập dữ liệu.
+
+Do đó, các phương pháp suy luận thống kê truyền thống gặp nhiều khó khăn trong bối cảnh dữ liệu được quan sát liên tục và thời điểm dừng không được xác định trước. Điều này đặt ra nhu cầu xây dựng các phương pháp suy luận vẫn giữ được tính hợp lệ bất kể khi nào quá trình thu thập dữ liệu kết thúc.
+
+Để giải quyết vấn đề trên, khuôn khổ
+\textbf{Sequential Anytime-Valid Inference (SAVI)}
+đã được phát triển. Một phương pháp được gọi là SAVI nếu nó cung cấp các kết luận thống kê hợp lệ tại mọi thời điểm dừng của quá trình thu thập dữ liệu, kể cả khi thời điểm đó không được xác định hoặc dự đoán trước.
+
+Các phương pháp SAVI cho phép:
+
+\begin{itemize}
+    \item Theo dõi và phân tích dữ liệu liên tục trong suốt quá trình thu thập;
+    
+    \item Đưa ra quyết định thích nghi để dừng hoặc tiếp tục thí nghiệm vì bất kỳ lý do nào;
+    
+    \item Thực hiện \textit{peeking} nhiều lần mà không làm mất đi tính hợp lệ của các kết luận thống kê;
+    
+    \item Kiểm soát xác suất sai lầm loại I tại mọi thời điểm dừng.
+\end{itemize}
+
+Nhờ đó, SAVI mang lại mức độ linh hoạt rất lớn cho nhà nghiên cứu, đặc biệt trong các nghiên cứu khám phá, thí nghiệm trực tuyến, thử nghiệm lâm sàng thích nghi, hệ thống học máy thời gian thực và các môi trường nghiên cứu nơi dữ liệu được theo dõi liên tục.
+
+Nền tảng toán học của SAVI được xây dựng trên các
+\textbf{test martingale}, \textbf{e-value} và \textbf{e-process}.
+Các công cụ này cho phép đo lường bằng chứng thống kê theo cách vẫn duy trì tính hợp lệ ở mọi thời điểm dừng, từ đó cung cấp một giải pháp tự nhiên cho bài toán \textit{optional stopping} và \textit{continuous monitoring}.
+```
