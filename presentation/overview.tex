@@ -1,0 +1,673 @@
+\section{Tổng quan}
+%-------------------------------------------------
+% Frame 1
+%-------------------------------------------------
+\begin{frame}{Tại sao cần kiểm định giả thuyết?}
+
+\begin{block}{Quan điểm của Karl Popper}
+Một giả thuyết khoa học phải có khả năng được kiểm chứng bằng dữ liệu thực nghiệm.
+\end{block}
+
+\begin{itemize}
+\item Giả thuyết phải có khả năng bị bác bỏ.
+\item Nếu không thể kiểm tra bằng dữ liệu thì đó không phải là giả thuyết khoa học.
+\item Dữ liệu và thống kê đóng vai trò trung tâm trong phương pháp khoa học hiện đại.
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------------------
+% Frame 2
+%-------------------------------------------------
+\begin{frame}{Kiểm định giả thuyết trong thống kê cổ điển}
+
+\begin{itemize}
+
+\item Bắt đầu với giả thuyết không: $H_0$
+\item Giả sử $H_0$ là đúng.
+
+\item Thu thập dữ liệu từ thí nghiệm.
+
+\item Nếu dữ liệu quan sát được quá bất thường dưới $H_0$ thì bác bỏ $H_0$.
+
+\item Mức độ bằng chứng thường được đo bằng \textbf{p-value}.
+
+\end{itemize}
+
+\begin{block}{Ý tưởng chính}
+Kiểm định giả thuyết có thể được xem như một dạng chứng minh phản chứng ngẫu nhiên.
+\end{block}
+
+\end{frame}
+
+%-------------------------------------------------
+% Frame 3
+%-------------------------------------------------
+\begin{frame}{Hạn chế của p-value}
+
+\begin{itemize}
+
+\item p-value truyền thống thường giả định kích thước mẫu cố định.
+
+\item Nhiều ứng dụng hiện đại tạo dữ liệu theo cách tuần tự:
+\begin{itemize}
+    \item A/B Testing
+    \item Thử nghiệm lâm sàng
+    \item Hệ thống học máy
+    \item Giám sát thời gian thực
+\end{itemize}
+
+\item Người nghiên cứu có thể liên tục kiểm tra kết quả trong quá trình thu thập dữ liệu.
+
+\end{itemize}
+
+\begin{alertblock}{Vấn đề}
+Việc dừng thí nghiệm tùy ý (optional stopping) có thể làm mất tính hợp lệ của suy luận thống kê cổ điển.
+\end{alertblock}
+
+\end{frame}
+
+%-------------------------------------------------
+% Frame 4
+%-------------------------------------------------
+\begin{frame}{SAVI: Sequential Anytime-Valid Inference}
+
+\begin{block}{Mục tiêu}
+Xây dựng các phương pháp suy luận vẫn đúng tại mọi thời điểm dừng quan sát.
+\end{block}
+
+\begin{itemize}
+\item Dữ liệu có thể được theo dõi liên tục.
+\item Thí nghiệm có thể dừng ở bất kỳ thời điểm nào.
+\item Vẫn kiểm soát được sai lầm loại I.
+\item Không cần xác định trước kích thước mẫu cuối cùng.
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------------------
+% Frame 5
+%-------------------------------------------------
+\begin{frame}{Ý tưởng cá cược chống lại giả thuyết không}
+
+\begin{itemize}
+
+    \item SAVI diễn giải kiểm định giả thuyết như một trò chơi cá cược chống lại $H_0$.
+
+    \item Một người chơi liên tục đặt cược dựa trên dữ liệu thu được.
+
+    \item Nếu tài sản tăng nhanh, điều đó cho thấy dữ liệu không phù hợp với $H_0$.
+
+\end{itemize}
+
+\medskip
+
+\[
+\text{Tài sản tăng}
+\Longrightarrow
+\text{Bằng chứng chống lại } H_0
+\]
+
+\medskip
+
+\begin{block}{Trực giác}
+Bác bỏ $H_0$ tương đương với việc kiếm được tiền khi cá cược chống lại $H_0$.
+\end{block}
+
+\end{frame}
+
+%-------------------------------------------------
+% Frame 6
+%-------------------------------------------------
+\begin{frame}{Từ cá cược đến Game-Theoretic Statistics}
+
+\begin{itemize}
+
+\item Cách tiếp cận cá cược dẫn đến:
+\begin{itemize}
+    \item Test Martingale
+    \item e-value
+    \item e-process
+\end{itemize}
+
+\item Đồng thời tạo cầu nối với:
+\begin{itemize}
+    \item Lý thuyết thông tin
+    \item Tiêu chuẩn Kelly
+    \item Xác suất và tài chính
+    \item Học trực tuyến và tối ưu hóa
+\end{itemize}
+
+\item Đây chính là nền tảng của \textbf{Game-Theoretic Statistics}.
+
+\end{itemize}
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 1
+%====================================================
+\subsection{Sequential Anytime-Valid Inference (SAVI)}
+
+\begin{frame}{P-value trong thống kê cổ điển}
+
+\begin{itemize}
+
+\item Giả sử $P(n)$ là p-value được tính từ $n$ quan sát đầu tiên.
+
+\item Với mức ý nghĩa $\alpha$, dưới giả thuyết không $H_0$:
+
+\[
+\Pr(P(n)\le \alpha)\le \alpha
+\]
+
+\item Điều này có nghĩa rằng xác suất sai lầm loại I được kiểm soát ở mức $\alpha$.
+
+\item Tuy nhiên, kết quả trên chỉ đúng khi kích thước mẫu $n$ được xác định trước.
+
+\end{itemize}
+
+\begin{block}{Thông điệp chính}
+P-value cổ điển chỉ đảm bảo tính hợp lệ khi số lượng dữ liệu được cố định trước khi thí nghiệm bắt đầu.
+\end{block}
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 2
+%====================================================
+\begin{frame}{Vấn đề của dữ liệu tuần tự}
+
+\begin{itemize}
+
+\item Trong thực tế, dữ liệu thường xuất hiện theo thời gian.
+
+\item Nhà nghiên cứu có thể:
+\begin{itemize}
+\item Quan sát dữ liệu liên tục;
+\item Kiểm tra p-value nhiều lần;
+\item Quyết định dừng hoặc tiếp tục thí nghiệm.
+\end{itemize}
+
+\item Gọi $\tau$ là thời điểm dừng của thí nghiệm.
+
+\item Khi đó ta quan tâm đến:
+
+\[
+\Pr(P(\tau)\le \alpha)
+\]
+
+\end{itemize}
+
+\begin{alertblock}{Vấn đề}
+
+Thông thường:
+
+\[
+\Pr(P(\tau)\le \alpha)\nleq \alpha
+\]
+
+\end{alertblock}
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 3
+%====================================================
+\begin{frame}{Optional Stopping}
+
+\begin{block}{Chiến lược phổ biến}
+Tiếp tục thu thập dữ liệu cho đến khi p-value trở nên có ý nghĩa thống kê.
+\end{block}
+
+\[
+\tau=
+\min
+\left\{
+n\in\mathbb{N}:
+P(n)\le \alpha
+\right\}
+\]
+
+\begin{itemize}
+
+\item Liên tục kiểm tra p-value.
+
+\item Dừng ngay khi $P(n)\le \alpha$.
+
+\item Khi đó xác suất bác bỏ sai $H_0$ có thể lớn hơn rất nhiều so với $\alpha$.
+
+\end{itemize}
+
+\begin{alertblock}{Kết quả}
+Nếu tiếp tục đủ lâu, xác suất dương tính giả có thể tiến gần tới $1$.
+\end{alertblock}
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 4
+%====================================================
+\begin{frame}{Khoảng tin cậy cũng gặp vấn đề}
+
+Giả sử
+
+\[
+(L^{(n)},U^{(n)})
+\]
+
+là khoảng tin cậy mức $(1-\alpha)$.
+
+\vspace{0.3cm}
+
+Khi $n$ cố định:
+
+\[
+\Pr
+\Big(
+\theta\in(L^{(n)},U^{(n)})
+\Big)
+\ge 1-\alpha
+\]
+
+\vspace{0.3cm}
+
+Nếu tiếp tục thu thập dữ liệu cho đến khi
+
+\[
+L^{(n)}>0
+\]
+
+thì thời điểm dừng phụ thuộc vào dữ liệu.
+
+\begin{alertblock}{Hệ quả}
+Tính chất bao phủ của khoảng tin cậy không còn được đảm bảo.
+\end{alertblock}
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 5
+%====================================================
+\begin{frame}{Động lực ra đời của SAVI}
+
+\begin{itemize}
+
+\item P-value mất tính hợp lệ dưới optional stopping.
+
+\item Khoảng tin cậy cổ điển cũng mất tính bao phủ.
+
+\item Dữ liệu hiện đại thường được theo dõi liên tục:
+
+\begin{itemize}
+\item A/B testing;
+\item Clinical trials;
+\item Online learning;
+\item Real-time monitoring.
+\end{itemize}
+
+\end{itemize}
+
+\begin{block}{Câu hỏi}
+Liệu có thể xây dựng một phương pháp suy luận vẫn đúng dù dừng ở bất kỳ thời điểm nào?
+\end{block}
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 6
+%====================================================
+\begin{frame}{Sequential Anytime-Valid Inference (SAVI)}
+
+\begin{block}{Ý tưởng cốt lõi}
+Một phương pháp được gọi là SAVI nếu nó vẫn duy trì tính hợp lệ tại mọi thời điểm dừng.
+\end{block}
+
+\begin{itemize}
+
+\item Theo dõi dữ liệu liên tục.
+
+\item Dừng hoặc tiếp tục thí nghiệm vì bất kỳ lý do nào.
+
+\item Thực hiện peeking nhiều lần.
+
+\item Vẫn kiểm soát sai lầm loại I.
+
+\end{itemize}
+
+\[
+\text{Validity}
+\Longrightarrow
+\text{At Every Stopping Time}
+\]
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 7
+%====================================================
+\begin{frame}{Nền tảng toán học của SAVI}
+
+Các công cụ cốt lõi của SAVI bao gồm:
+
+\begin{itemize}
+
+\item Test Martingales
+
+\item e-values
+
+\item e-processes
+
+\end{itemize}
+
+\vspace{0.3cm}
+
+Các công cụ này cho phép:
+
+\begin{itemize}
+
+\item Đo lường bằng chứng thống kê theo thời gian
+
+\item Duy trì tính hợp lệ dưới optional stopping
+
+\item Hỗ trợ suy luận tuần tự và anytime-valid
+
+\end{itemize}
+
+\begin{block}{Phần tiếp theo}
+Chúng ta sẽ bắt đầu từ ý tưởng cá cược và test martingale.
+\end{block}
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 8: The Lady Tasting Tea
+%====================================================
+\begin{frame}{Thí nghiệm: The Lady Tasting Tea (Fisher, 1920s)}
+
+\begin{block}{Câu chuyện lịch sử}
+Muriel Bristol tuyên bố bà có thể nhận biết được trà được rót vào sữa trước hay sữa được rót vào trà trước.
+\end{block}
+
+\begin{itemize}
+    \item \textbf{Giả thuyết không $H_0$:} Muriel chỉ đang đoán mò (xác suất 50/50).
+    \item \textbf{Thiết kế:} 8 cốc trà (4 loại này, 4 loại kia), yêu cầu phân loại.
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Kết quả dưới $H_0$:}
+\begin{itemize}
+    \item Nếu đúng hoàn toàn: p-value $= \frac{1}{70} \approx 0.014$ (Bác bỏ $H_0$).
+    \item Nếu chỉ sai 1 ly: p-value $= \frac{17}{70} \approx 0.24$ (Không thể bác bỏ $H_0$).
+\end{itemize}
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 9: Hạn chế
+%====================================================
+\begin{frame}{Hạn chế của phương pháp cổ điển}
+
+Từ thí nghiệm của Fisher, ta thấy các nhược điểm cốt lõi:
+
+\begin{itemize}
+    \item \textbf{Mất mát bằng chứng:} Chỉ một sai sót nhỏ cũng làm bằng chứng thống kê (p-value) suy giảm nghiêm trọng.
+    \item \textbf{Tổng hợp một lần:} Toàn bộ bằng chứng chỉ được tính toán một lần duy nhất vào cuối thí nghiệm.
+    \item \textbf{Kích thước mẫu cố định:} Không được dừng sớm nếu bằng chứng đã rõ ràng, cũng không được thu thập thêm dữ liệu nếu bằng chứng chưa đủ mạnh (vấn đề \textit{Optional Stopping}).
+\end{itemize}
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 10: The Lady Keeps Tasting Coffee
+%====================================================
+\begin{frame}{The Lady Keeps Tasting Coffee (Ramdas)}
+
+Để khắc phục, Aaditya Ramdas đề xuất một phiên bản hiện đại:
+
+\begin{block}{Thiết lập thí nghiệm mới}
+Leila Wehbe cần phân biệt: Espresso rót vào sữa hay sữa rót vào Espresso. Cô có thể tiếp tục quan sát và dự đoán trong thời gian \textbf{tùy ý}.
+\end{block}
+
+\begin{itemize}
+    \item \textbf{$H_0$:} Leila không có khả năng phân biệt (xác suất đoán đúng ở mỗi vòng chỉ là $1/2$).
+    \item \textbf{Cách tiếp cận SAVI:} Không đếm số câu trả lời đúng để tính p-value, mà thiết kế một \textbf{trò chơi cá cược} giữa nhà thống kê và giả thuyết không.
+\end{itemize}
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 11: Ý tưởng cá cược
+%====================================================
+\begin{frame}{Kiểm định thông qua cá cược (Testing by Betting)}
+
+\begin{block}{Cơ chế cá cược}
+\begin{itemize}
+    \item Ở mỗi dự đoán, Leila đặt cược một phần tài sản đang có.
+    \item Đoán đúng $\rightarrow$ Tài sản tăng. Đoán sai $\rightarrow$ Tài sản giảm.
+\end{itemize}
+\end{block}
+
+\textbf{Logic của phương pháp:}
+\begin{itemize}
+    \item Nếu $H_0$ ĐÚNG: Trò chơi là công bằng. Không có chiến lược nào giúp làm giàu một cách hệ thống.
+    \item Nếu $H_0$ SAI: Tồn tại sự khác biệt, một chiến lược tốt sẽ tạo ra lợi nhuận.
+\end{itemize}
+
+\begin{alertblock}{Kết luận cốt lõi}
+Tài sản tích lũy được trong trò chơi chính là \textbf{thước đo trực tiếp} của bằng chứng chống lại giả thuyết không.
+\end{alertblock}
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 12: Thiết lập toán học
+%====================================================
+\begin{frame}{Thiết lập toán học của quá trình cá cược}
+
+\begin{itemize}
+    \item \textbf{Tài sản ban đầu:} $L_0 = 1$.
+    \item \textbf{Tỷ lệ đặt cược:} $\lambda_i \in [0,1]$ ở vòng $i$ (predictable bet).
+    \item \textbf{Kết quả:} $R_i \in \{+1, -1\}$ (Đúng được $+1$, sai bị $-1$).
+\end{itemize}
+
+\vspace{0.3cm}
+Quy tắc cập nhật tài sản sau mỗi vòng:
+\[
+L_i = L_{i-1}(1 + \lambda_i R_i)
+\]
+
+Sau $t$ vòng quan sát, tổng tài sản (\textit{wealth process}) là:
+\[
+L_t = \prod_{i=1}^{t} (1 + \lambda_i R_i)
+\]
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 13: Martingale dưới H0
+%====================================================
+\begin{frame}{Martingale dưới giả thuyết không}
+
+Nếu giả thuyết không $H_0$ là đúng (Leila chỉ đoán mò):
+\[
+\mathbb{E}_{H_0}[R_i \mid \mathcal{F}_{i-1}] = 0
+\]
+Trong đó $\mathcal{F}_{i-1}$ là toàn bộ thông tin có sẵn trước vòng $i$.
+
+Từ đó, kỳ vọng tài sản ở vòng tiếp theo là:
+\[
+\mathbb{E}_{H_0}[L_i \mid \mathcal{F}_{i-1}] = L_{i-1}
+\]
+
+\begin{block}{Tính chất Martingale}
+Quá trình $(L_t)_{t\ge 0}$ là một \textbf{nonnegative martingale}. Dưới giả thuyết không, trò chơi là hoàn toàn công bằng.
+\end{block}
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 14: Định lý dừng và Bất đẳng thức
+%====================================================
+\begin{frame}{Optional Stopping \& Bất đẳng thức Ville}
+
+Nhờ tính chất Martingale, ta có các kết quả lý thuyết mạnh mẽ:
+
+\begin{itemize}
+    \item \textbf{Định lý dừng tùy chọn (Optional Stopping Theorem):} Với mọi thời điểm dừng $\tau$,
+    \[ \mathbb{E}_{H_0}[L_\tau] \le 1 \]
+    \textit{(Khắc phục hoàn toàn vấn đề Optional Stopping của p-value!)}
+
+    \vspace{0.2cm}
+    \item \textbf{Bất đẳng thức Ville:} Phiên bản tuần tự của Bất đẳng thức Markov:
+    \[ \Pr_{H_0} \left( \sup_{t\ge 0} L_t \ge \frac{1}{\alpha} \right) \le \alpha \]
+    \textit{Ví dụ:} Với $\alpha = 0.02$, xác suất để tài sản $L_t \ge 50$ nhờ may mắn (nếu $H_0$ đúng) là không quá $2\%$.
+\end{itemize}
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 15: E-process và P-process
+%====================================================
+\begin{frame}{Suy luận tuần tự hợp lệ mọi thời điểm (SAVI)}
+
+\begin{itemize}
+    \item \textbf{e-process:} Quá trình tài sản $(L_t)_{t\ge 0}$ đóng vai trò đo lường bằng chứng. $L_t$ càng lớn, bằng chứng chống lại $H_0$ càng mạnh.
+    \item \textbf{p-process:} Một anytime-valid p-value có thể được xây dựng từ e-process:
+    \[ p_t = \inf_{s\le t} \frac{1}{L_s} \]
+\end{itemize}
+
+\begin{block}{Kiểm định tuần tự}
+Ta bác bỏ giả thuyết không $H_0$ ngay khi tài sản vượt ngưỡng:
+\[ \varphi_t = \mathbf{1} \left\{ L_t \ge \frac{1}{\alpha} \right\} \]
+Nhờ BĐT Ville, xác suất sai lầm loại I được \textbf{kiểm soát chặt chẽ $\le \alpha$ tại mọi thời điểm dừng}.
+\end{block}
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 16: Tiêu chuẩn Kelly
+%====================================================
+\subsection{Cược Kelly và Tính Tối Ưu Logarit}
+
+\begin{frame}{Tiêu chuẩn Kelly (Kelly Criterion)}
+
+\begin{block}{Thiết lập bài toán}
+Giả sử ta quan sát một chuỗi tung đồng xu độc lập (i.i.d.) với xác suất ngửa là $p > 1/2$ (giá trị $p$ đã biết).
+\end{block}
+
+\begin{itemize}
+    \item \textbf{Vốn ban đầu:} \textbf{1} đô la.
+    \item \textbf{Hành động:} Ở mỗi vòng, đặt cược một tỷ lệ $\lambda \in [0,1]$ tài sản vào mặt ngửa.
+    \item \textbf{Luật chơi:} Ngửa thì nhân đôi tiền cược, sấp thì mất tiền cược.
+\end{itemize}
+
+\vspace{0.2cm}
+Ký hiệu biến chỉ thị kết quả vòng thứ $i$:
+\[
+B_i =
+\begin{cases}
+1, & \text{nếu lần tung thứ } i \text{ là mặt ngửa},\\
+-1, & \text{nếu lần tung thứ } i \text{ là mặt sấp}.
+\end{cases}
+\]
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 17: Quá trình tài sản
+%====================================================
+\begin{frame}{Quá trình tài sản và Tốc độ tăng trưởng}
+
+Tài sản sau $t$ vòng được biểu diễn bởi:
+\[
+W_t(\lambda) = \prod_{i=1}^{t} \left(1+\lambda B_i\right)
+\]
+
+Lấy logarit hai vế, ta chuyển phép nhân thành phép cộng:
+\[
+\log W_t(\lambda) = \sum_{i=1}^{t} \log\left(1+\lambda B_i\right)
+\]
+
+Theo luật số lớn (Law of Large Numbers), khi $t \to \infty$:
+\[
+\frac{1}{t}\log W_t(\lambda) \to \mathbb{E} \big[ \log(1+\lambda B) \big]
+\]
+
+\begin{alertblock}{Mục tiêu của Kelly}
+Tìm tỷ lệ cược $\lambda$ để \textbf{tối đa hóa tốc độ tăng trưởng logarit dài hạn} của tài sản.
+\end{alertblock}
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 18: Tỷ lệ cược tối ưu
+%====================================================
+\begin{frame}{Nghiệm Kelly: Tỷ lệ cược tối ưu}
+
+Ta cần giải bài toán tối ưu:
+\[
+\lambda^* = \arg\max_{\lambda} \mathbb{E} \big[ \log(1+\lambda B) \big]
+\]
+
+Khai triển hàm mục tiêu:
+\[
+\mathbb{E} \big[ \log(1+\lambda B) \big] = p\log(1+\lambda) + (1-p)\log(1-\lambda)
+\]
+
+Lấy đạo hàm theo $\lambda$ và cho bằng \textbf{0}:
+\[
+\frac{p}{1+\lambda} - \frac{1-p}{1-\lambda} = 0
+\]
+
+\begin{block}{Kết quả}
+\[ \lambda^* = 2p - 1 = 2\left(p - \frac{1}{2}\right) \]
+\textit{Ý nghĩa:} Tỷ lệ vốn đặt cược \textbf{tỷ lệ thuận} với mức độ lợi thế của người chơi so với một trò chơi công bằng ($p=1/2$). Nếu không có lợi thế ($p=1/2$), $\lambda^* = 0$ (không nên cược).
+\end{block}
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 19: Lý thuyết thông tin
+%====================================================
+\begin{frame}{Mối liên hệ với Lý thuyết Thông tin}
+
+Thay $\lambda^*$ vào biểu thức tài sản, ta thu được tốc độ tăng trưởng tối ưu:
+\[
+W_t(\lambda^*) = \exp \Big( t\,H(p\|1/2) + o(t) \Big)
+\]
+
+Trong đó $H(p\|1/2)$ là \textbf{phân kỳ Kullback--Leibler} (Relative Entropy) giữa Bernoulli($p$) và Bernoulli($1/2$):
+\[
+H(p\|1/2) = p\log(2p) + (1-p)\log\big(2(1-p)\big)
+\]
+
+Tương đương:
+\[
+\lim_{t\to\infty} \frac{\mathbb{E}[\log W_t(\lambda^*)]}{t} = H(p\|1/2)
+\]
+
+\begin{alertblock}{Kết luận}
+Tốc độ tăng trưởng tối ưu của tài sản chính là \textbf{lượng thông tin} mà phân phối thật chứa đựng so với giả thuyết đồng xu công bằng.
+\end{alertblock}
+
+\end{frame}
+
+%====================================================
+% SAVI - Frame 20: Vai trò trong SAVI
+%====================================================
+\begin{frame}{Tầm quan trọng của Cược Kelly}
+
+Bên cạnh việc tối ưu tốc độ tăng trưởng dài hạn, tiêu chuẩn Kelly còn mang lại nhiều đặc tính tối ưu tiệm cận khác:
+
+\begin{itemize}
+    \item \textbf{Tối thiểu hóa thời gian kỳ vọng} để đạt tới một ngưỡng tài sản cho trước.
+    \item \textbf{Tối đa hóa tài sản kỳ vọng} tại một thời điểm xác định.
+\end{itemize}
+
+\vspace{0.3cm}
+\begin{block}{Viên gạch nền tảng của Game-Theoretic Statistics}
+Chính sự kết nối bền chặt giữa \textit{Lý thuyết cá cược} và \textit{Lý thuyết thông tin} đã biến Tiêu chuẩn Kelly thành nền tảng để xây dựng các \textbf{test martingale} và \textbf{e-process} trong phương pháp suy luận tuần tự \textbf{SAVI}.
+\end{block}
+
+\end{frame}

@@ -1,0 +1,191 @@
+\section{Nội dung lý thuyết}
+
+\subsection{Kiểm định}
+
+\begin{frame}
+  \begin{defn}
+    Giả sử $\mathcal{M}_1$ gồm tất cả độ đo xác suất trên $(\Omega,
+    \mathcal{F})$. Một giả thuyết là tập hợp các độ đo xác suất trong
+    $\mathcal{M}_1$.
+  \end{defn}
+
+  \begin{defn}
+    \begin{itemize}
+      \item Kiểm định $\phi$ là biến ngẫu nhiên nhận giá trị trong $[0, 1]$
+        thỏa mãn $\prob(P \leq \alpha) \leq \alpha$ với mọi $\alpha \in (0,
+        1)$. Tỉ lệ sai lầm loại I đối với $P$ là $\expect_P[\phi]$.
+      \item Kiểm định tuần tự là một tiến trình nhị phân $\phi$ sao cho
+        $\prob_{P \in \mathcal{P}}(\exists t \le 1 : \phi_t  = 1) \le \alpha$.
+    \end{itemize}
+  \end{defn}
+
+  \begin{defn}
+    \begin{itemize}
+      \item E-variable $E$ cho $\mathcal{P}$ biến ngẫu nhiên không âm sao cho
+        $\expect_P[E] \le 1$ với mọi $P \in \mathcal{P}$.
+      \item P-value $P$ cho $\mathcal{P}$ là biến ngẫu nhiên trong $[0, 1]$
+        thỏa mãn $\prob(P \leq \alpha) \leq \alpha$ với mọi $P \in
+        \mathcal{P}$.
+    \end{itemize}
+  \end{defn}
+
+\end{frame}
+
+\begin{frame}
+  \begin{defn}
+    Nếu $\mathcal{F}$ là sự lọc, tức là có $\mathcal{F}_1 \subseteq
+    \mathcal{F}_2 \subseteq \dotsb$ $M$ là test supermartingale cho
+    $\mathcal{P}$ nếu $M \ge 0$, $M_0 = 1$ và $\expect_P[M_t\mid \mathcal{F}_{t
+    - 1}] \le M_{t - 1}$ với xác suất 1 ($P$-almost surely), $\forall P \in
+    \mathcal{P}$, $t \ge 1$. Đối với martingale thì đổi dấu ``$\le$'' thành
+    ``$=$''.
+  \end{defn}
+
+  \begin{defn}
+    Dãy các e-value $E = (E_t)_{t \ge 1}$ được gọi là e-process cho
+    $\mathcal{P}$ nếu $\expect_P[E_\tau] \le 1$ với mọi $P \in \mathcal{P}$ và
+    mọi thời điểm dừng $\tau$
+  \end{defn}
+
+  \begin{thm}[Bất đẳng thức Ville]
+    Nếu $E$ là một e-process cho $\mathcal{P}$ thì $\prob(\exists t \ge 1 : E_t
+    \le 1/\alpha) \le \alpha$ với mọi $P \in \mathcal{P}$.
+  \end{thm}
+
+  \begin{thm}
+    Mọi kiểm định tuần tự mức ý nghĩa $\alpha$ đều có được qua lấy ngưỡng
+    $1/\alpha$ của một e-process nào đó.
+  \end{thm}
+\end{frame}
+
+\begin{frame}
+  \begin{algorithm}[H]
+    \caption{Kiểm định qua cá cược: trường hợp $P$ đơn}
+    Khởi tạo tài sản ban đầu cho nhà thống kê $W_0 = 1$\;
+    \For{$t = 1$, $2$, $\ldots\,$}{
+      Nhà thống kê tuyên bố một khoản cược $S_t \colon \mathcal{X} \to [0,
+      \infty]$ sao cho \begin{equation*}
+        \expect_P[S_t(X) \mid X_1, \dots, X_{t - 1}] \le 1
+      \end{equation*}\vspace{-1\baselineskip}\;
+      Quan sát $X_t$\;
+      Cập nhật tài sản của nhà thống kê $W_t = W_{t - 1} \cdot S_t(X_t)$\;
+    }
+  \end{algorithm}
+
+  Nếu $\mathcal{P}$ và $\mathcal{Q}$ đều đơn thì khoản cược tối ưu logarit là
+  $S_t(x) = q(x) / p(x)$. Khi đó $\expect_P[W_\tau] \le 1$,
+  $\expect_P[\log W_\tau] \le 0$ trong khi $\expect_Q[\log W_T] > 0$ được tối
+  đa hóa và tương đương $T \cdot \KL(Q, P)$.
+\end{frame}
+
+\subsection{Ước lượng}
+
+\begin{frame}
+  \begin{defn}
+    Confidence sequence cho một tham số $\theta$ là dãy các khoảng tin cậy
+    $(L_n, U_n)$ được tạo từ $n$ mẫu đầu và đảm bảo bao phủ đồng thời:
+    $\prob(\forall t \ge 1 : \theta \in (L_n, U_n)) \ge 1 - \alpha$.
+  \end{defn}
+
+  Định nghĩa trên tương đương với một trong các tính chất sau: \begin{itemize}
+    \item $\prob(\exists n \in \mathbb{N}: \theta \not\in (L_n, U_n)) \le
+      \alpha$;
+    \item Với mọi thời điểm dừng $\tau$: $\prob(\theta \not\in (L_\tau,
+      U_\tau)) \le \alpha$;
+    \item Với mọi thời điểm $T$ ngẫu nhiên: $\prob(\theta \not\in (L_T, U_T))
+      \le \alpha$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{exmp}
+    Nếu $X_1$, $X_2$, $\ldots\,$ là các biến ngẫu nhiên i.i.d Gaussian hoặc bị
+    chặn trong $[-1, 1]$ thì \begin{equation}
+      \frac{ \sum_{i = 1}^n X_i }{ n } \pm 1.71 \sqrt{ \frac{ \log\log(2n) +
+      0.72 \log ( 10.4 / \alpha ) }{ n } }
+    \end{equation} là một $(1 - \alpha)$ confidence sequence cho $\mu$, tương
+    tự như \begin{equation}
+      \bigcap_{s \le n} \frac{ \sum_{i = 1}^n X_i }{ n } \pm 1.71 \sqrt{ \frac{
+        \log\log(2n) + 0.72 \log ( 10.4 / \alpha ) }{ n } }.
+    \end{equation}
+  \end{exmp}
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{mu-estimation}
+    \caption{So sánh khoảng tin cậy và dãy tin cậy cho $\mu$}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \begin{exmp}[Dãy tin cậy cho một phân vị cố định]
+    Đặt \begin{equation*}
+      u_t := \sqrt{ \frac{ 0.73 \log\log(2.04t) + 0.52 \log(9.97/\alpha) } { t
+      } }
+    \end{equation*} Khi đó, \begin{equation*}
+      \prob(\forall t \in \mathbb{N} : \hat{Q}_t(1/ 2 - u_t) \le Q(1/2) \le
+      \hat{Q}_t(1/2 + u_t)) \ge 1 - \alpha.
+    \end{equation*}
+  \end{exmp}
+
+  \begin{exmp}[Dãy tin cậy cho đồng thời các phân vị]
+    Đặt \begin{equation*}
+      u_t := \sqrt{ \frac{ \log\log(et) + 0.75 \log(34 / \alpha) } { t } }.
+    \end{equation*} Khi đó, \begin{equation*}
+      \prob(\forall t \in \mathbb{N}, p \in (0, 1): \hat{Q}_t(p - u_t) \le Q(p)
+      \le \hat{Q}_t(p + u_t) ) \ge 1 - \alpha.
+    \end{equation*}
+  \end{exmp}
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{quantile-estimation}
+    \caption{Ước lượng cho phân vị phân phối Cauchy}
+  \end{figure}
+\end{frame}
+
+\subsection{Ước lượng qua cá cược}
+
+\begin{frame}
+
+  \begin{algorithm}[H]
+    \caption{Ước lượng qua cá cược}
+
+    Khởi tạo vốn ban đầu $K^m_0 = 1$ cho mỗi trò chơi $m \in [0, 1]$\;
+
+    \For{$t = 1, 2, \dots$}{
+      Với mỗi $m \in [0, 1]$, nhà thống kê đặt cược $\lambda_t^m \in [ -1/( 1-
+      m), 1/m ]$\;
+      Quan sát $X_t$\;
+      Cập nhật tài sản trong game $m$ thành $K^m_t = K^m_{t - 1} \cdot (1 +
+      \lambda^m_t(X_t - m))$\;
+    }
+  \end{algorithm}
+
+  Đặt $C_t := \{ m \in [0, 1]: K^m_t < 1/\alpha \}$. Theo định lý thì $(C_t)_{t
+  \ge 1}$ là dãy tin cậy cho $\mu$.
+\end{frame}
+
+\begin{frame}
+  \begin{block}{GRAPA}
+    GRAPA (Grow Rate Adaptive to the Particular Alternative), ta đặt cược như
+    sau: \begin{equation}
+      \lambda^m_t(P) := \mathop{\arg\max}_{\lambda \in [-1/(1 - m), 1/m]}
+      \expect_P[\log(1 + \lambda(X_t - m)) \mid \mathcal{F}_{t - 1}].
+    \end{equation} Nhưng ta không biết $P$, lời giải xấp xỉ: \begin{equation*}
+      \lambda^m_t = \frac{\hat\mu_t - m}{ \hat\sigma_t^2 + (\hat\mu_t - m)^2 },
+    \end{equation*} trong đó các $\mu_t$ và $\sigma_t^2$ được tính từ $t - 1$
+    mẫu đầu.
+  \end{block}
+
+  \begin{block}{Mixture}
+    \begin{equation}
+      C_t := \Biggl\{ m \in [0,1] : \int_{-1/(1-m)}^{1/m} \prod_{i=1}^t \big(1
+      + \lambda(X_i - m)\big) \, d\nu(\lambda) < \frac{1}{\alpha} \Biggr\}
+    \end{equation}
+  \end{block}
+\end{frame}
