@@ -1,0 +1,255 @@
+\section{Nội dung lý thuyết}
+
+\subsection{Kí hiệu và quy ước toán học}
+
+Chúng ta bắt đầu với một không gian mẫu $\Omega$ được trang bị một $\sigma$-đại
+số $\mathcal{F}$, và tập hợp $\mathcal{M}_1$ gồm tất cả các độ đo xác suất trên
+$(\Omega, \mathcal{F})$. Các phần tử của $\mathcal{M}_1$ còn được gọi là các
+phân phối. Theo định nghĩa hình thức, một biến ngẫu nhiên là một hàm đo được từ
+$(\Omega, \mathcal{F})$ đến $\mathbb{R}$ hoặc $[-\infty, \infty]$. Khi cho phép
+một biến ngẫu nhiên nhận các giá trị vô hạn, chúng ta sẽ ghi chú rõ ràng; nếu
+không, nó sẽ nhận giá trị trong $\mathbb{R}$. Chúng ta giả định rằng một phân
+phối nào đó $P^\dagger \in \mathcal{M}_1$ chi phối dữ liệu $X$ của chúng ta (là
+một biến ngẫu nhiên). Lưu ý rằng $X$ có thể là một véc-tơ $(X_1, \dots, X_n)$.
+Các biến $X_1, \dots, X_n$ có thể độc lập và cùng phân phối (iid) dưới
+$P^\dagger$, nhưng điều này không nhất thiết phải xảy ra. Chúng ta sử dụng
+$X^t$ như một cách viết tắt cho $t$ điểm dữ liệu đầu tiên $(X_1, \dots, X_t)$.
+
+\begin{defn}[Giả thuyết]
+  Một giả thuyết (hypothesis) là một tập hợp các độ đo xác suất trong
+  $\mathcal{M}_1$. Một giả thuyết là đơn (single) nếu nó chỉ là một tập đơn tử,
+  chẳng hạn như $\{P\}$ và $\{Q\}$. Ngược lại, nó được gọi là giả thuyết hợp
+  (composite).
+\end{defn}
+
+Chúng ta sẽ luôn sử dụng $\mathcal{P}$ cho giả thuyết không và $\mathcal{Q}$
+cho giả thuyết thay thế. Chúng ta cũng sẽ viết $H_0$ là giả thuyết không rằng
+$P^\dagger \in \mathcal{P}$, và $H_1$ là giả thuyết thay thế rằng $P^\dagger
+\in \mathcal{Q}$; nghĩa là, chúng ta hiểu một giả thuyết vừa như một đối tượng
+toán học $\mathcal{P}$, vừa như một phát biểu thống kê $H_0$. Đối với một giả
+thuyết đơn $\mathcal{P} = \{P\}$, chúng ta sử dụng các cụm từ ``kiểm định
+$H_0$'', ``kiểm định $\mathcal{P}$'' và ``kiểm định $P$'' thay thế cho nhau.
+Các tập hợp $\mathcal{P}$ và $\mathcal{Q}$ luôn được giả định là rời nhau. Gọi
+$\text{Conv}(\mathcal{P})$ là bao lồi của $\mathcal{P}$.
+
+Như đã đề cập ở trên, chúng ta luôn sử dụng $\mathcal{P}, \mathcal{Q}$ cho các
+tập các phân phối, và $P, Q$ cho một phân phối đơn lẻ. Trong bối cảnh của một
+giả thuyết $\mathcal{P}$, các phát biểu về tính độc lập, phân phối và đẳng thức
+hầu chắc chắn (\textit{almost-sure}) được hiểu là đúng đối với mọi phần tử
+trong tập đó. Chúng ta nói rằng $\mathcal{Q}$ liên tục tuyệt đối đối với
+$\mathcal{P}$, ký hiệu $\mathcal{Q} \ll \mathcal{P}$, nếu $P(A) = 0$ kéo theo
+$Q(A) = 0$ với mọi tập đo được $A$. Trong trường hợp này, chúng ta sử dụng
+$dQ/dP$ để chỉ tỉ số khả năng (\emph{likelihood ratio}) (hoặc tổng quát hơn
+là đạo hàm Radon–Nikodym) giữa $Q$ và $P$. Nếu ký hiệu $q$ và $p$ lần lượt là
+các hàm mật độ của $Q$ và $P$ đối với một độ đo tham chiếu $L$ (thường là độ đo
+Lebesgue, do đó mới có ký hiệu này), chúng ta có thể viết $(dQ/dP)(x) =
+q(x)/p(x)$. Kỳ vọng của một biến ngẫu nhiên $X$ dưới $P$ được ký hiệu là
+$\expect_P[X] = \int X\,dP$.
+
+Một số ký hiệu sẽ được sử dụng xuyên suốt. Tập $\mathbb{N} = \{1, 2, \dots \}$
+là tập tất cả các số nguyên dương, và $\mathbb{R} = (-\infty, \infty)$ là tập
+tất cả các số thực. Chúng ta nói rằng một biến ngẫu nhiên $X$ lớn hơn một cách
+ngẫu nhiên (dưới $P$, đôi khi được lược bỏ nếu ngữ cảnh đã rõ) so với một phân
+phối trên $\mathbb{R}$, được biểu diễn bởi hàm phân phối tích lũy (cdf) $F$,
+nếu $P(X \leq x) \leq F(x)$ với mọi $x \in \mathbb{R}$. Chúng ta viết $X
+\stackrel{d}{\sim} F$ nếu phân phối của $X$ là $F$ dưới một độ đo xác suất $P$
+(ngữ cảnh phải rõ ràng); ký hiệu $\stackrel{iid}{\sim}$ cũng tương tự. Với một
+số nguyên dương $K$, chúng ta ký hiệu $[K] = \{1, \dots, K\}$ và $\Delta_K$ là
+đơn hình chuẩn trong $\mathbb{R}^K$, tức là:
+\begin{equation}
+    \Delta_K = \biggl\{ (v_1, \dots, v_K) \in [0, 1]^K : \sum_{k=1}^K v_k = 1
+    \biggr\}.
+\end{equation} Số Euler $\exp(1)$ được ký hiệu là $e$ (xin lưu ý rằng điều này
+khác với biến $e$, nhưng tất nhiên chúng ta sẽ tránh sử dụng cả hai trong cùng
+một phương trình bất cứ khi nào có thể).
+
+Tất cả các thuật ngữ như ``tăng'' và ``giảm'' đều được hiểu theo nghĩa không
+ngặt.  Chúng ta viết $x \wedge y$ và $x \vee y$ lần lượt cho giá trị nhỏ nhất
+và giá trị lớn nhất của hai số thực $x, y$.
+
+\subsection{e-variable, p-variable và test}
+
+\begin{defn}
+  Cho $\mathcal{P} \subseteq \mathcal{M}_1$ là một tập hợp các độ đo xác suất
+  đại diện cho giả thuyết không. \begin{enumerate}[label=(\roman*)]
+    \item Một e-variable $E$ cho $\mathcal{P}$ là một biến ngẫu nhiên nhận
+      giá trị trong $[0, \infty]$ thỏa mãn $\expect_P[E] \leq 1$ với mọi $P \in
+      \mathcal{P}$. Một e-variable $E$ được gọi là chính xác (\emph{exact})
+      nếu $\expect_P[E] = 1$ với mọi $P \in \mathcal{P}$.
+
+    \item Một p-variable $P$ cho $\mathcal{P}$ là một biến ngẫu nhiên nhận giá
+      trị trong $[0, 1]$ thỏa mãn $\prob(P \leq \alpha) \leq \alpha$ với mọi
+      $\alpha \in (0, 1)$ và mọi $P \in \mathcal{P}$. Một p-variable $P$ được
+      gọi là chính xác nếu $\prob(P \leq \alpha) = \alpha$ với mọi $\alpha \in
+      (0, 1)$ và mọi $P \in \mathcal{P}$.
+
+    \item Một kiểm định (test) $\phi$ là một biến ngẫu nhiên nhận giá trị trong
+      $[0, 1]$. Một kiểm định được gọi là nhị phân (\emph{binary}) nếu phạm vi
+      giá trị của nó là $\{0, 1\}$. Tỉ lệ sai lầm loại I của một kiểm định
+      $\phi$ đối với $\mathcal{P}$ là $\expect_P[\phi]$. Một kiểm định $\phi$
+      có mức ý nghĩa $\alpha \in [0, 1]$ đối với $\mathcal{P}$ nếu tỉ lệ sai
+      lầm loại I của nó không vượt quá $\alpha$ với mỗi $P \in \mathcal{P}$.
+  \end{enumerate}
+\end{defn}
+
+Giá trị mà e-variable hoặc p-variable nhận được sau khi quan sát dữ liệu được
+gọi là e-value hoặc p-value. Do đó, có thể thấy rằng e/p-values thực chất không
+phải là các đối tượng được định nghĩa chặt chẽ về mặt toán học, mặc dù đây là
+những thuật ngữ phổ biến trong các tài liệu thống kê. Trong cuốn sách này,
+chúng tôi luôn sử dụng thuật ngữ ``e/p-variable'' khi đưa ra các phát biểu hoặc
+kết quả toán học về các biến ngẫu nhiên tương ứng, và đề cập đến ``e/p-value''
+khi ý nghĩa thống kê của chúng quan trọng hơn. Trong trường hợp sau, e/p-value
+có thể chỉ biến ngẫu nhiên hoặc giá trị thực hiện của nó, và điều này sẽ được
+làm rõ dựa trên ngữ cảnh.
+
+\subsection{Test supermartingale, sequential test, and e-process}
+
+Có bốn công cụ SAVI chính: e-process, p-process, $(1 - \alpha)$-confidence
+sequence và level-$\alpha$ sequential test; dễ dàng nhận thấy rằng hai công
+cụ sau gắn liền với một mức $\alpha \in [0, 1]$ được xác định trước, trong khi
+hai công cụ đầu thì không. Đây lần lượt là các phiên bản tuần tự của
+e-variable, p-variable, $(1 - \alpha)$-confidence interval và level-$\alpha$
+test. Chúng ta sẽ tập trung chủ yếu vào e-process vì chúng là đối tượng
+trung tâm; các đối tượng còn lại có thể dễ dàng suy ra từ bất đẳng thức Ville
+áp dụng cho một hoặc nhiều e-process.
+
+Chúng ta bắt đầu với nền tảng kỹ thuật cần thiết cho bối cảnh tuần tự. Chúng ta
+giả định rằng độc giả đã quen thuộc với các thuật ngữ trong tiến trình ngẫu
+nhiên, được tóm tắt dưới đây.
+
+Chúng ta làm việc trong một không gian xác suất có lọc (filtered) cố định,
+nghĩa là $\mathcal{F}$ đề cập đến một sự lọc (filtration) $(\mathcal{F}_t)_{t
+\in T}$ (một dãy các $\sigma$-đại số lồng nhau), trong đó $T$ là một tập hợp
+chỉ số hữu hạn hoặc vô hạn bắt đầu từ 0. Chúng ta chỉ xử lý các tiến trình thời
+gian rời rạc, nên $T = \mathbb{N}_0$ hay $\{0, 1, \dots, n\}$ với $n \in
+\mathbb{N}$. Gọi $\mathcal{F}_\infty = \bigcup_{t \in T} \mathcal{F}_t$. Ký
+hiệu $\mathcal{T}_+$là tập hợp $T \setminus \{0\}$.
+
+Một dãy các biến ngẫu nhiên $Y = (Y_t)_{t \in T}$ được gọi là một tiến trình
+nếu nó thích nghi với $\mathcal{F}$—tức là, nếu $Y_t$ đo được đối với
+$\mathcal{F}_t$ với mọi $t$. Một tiến trình $Y$ được gọi là có thể dự báo nếu
+$Y_t$ đo được đối với $\mathcal{F}_{t-1}$ với mỗi $t \geq 1$. Các bất đẳng thức
+so sánh các tiến trình được hiểu là giữ nguyên tại mỗi $t \in T$.
+
+Thông thường $\mathcal{F}$ được chọn là sự lọc tự nhiên của dữ liệu, đó là
+$\mathcal{F}_t := \sigma(X^t)$, trong đó $X^t = (X_1, \dots, X_t)$, với
+$\mathcal{F}_0$ là tầm thường ($\mathcal{F}_0 = \{\emptyset, \Omega\}$). Trong
+trường hợp này, việc $Y_t$ đo được đối với $\mathcal{F}_t$ có nghĩa là $Y_t$ là
+một hàm đo được của $X^t$. Tuy nhiên, đôi khi $\mathcal{F}$ là một sự lọc thô
+hơn (coarser) (chúng ta loại bỏ thông tin) hoặc phong phú hơn (richer) (ví dụ
+cho phép $\mathcal{F}_0 = \sigma(U_0)$ đối với một biến ngẫu nhiên phân phối
+đều $U_0$ độc lập với tất cả các yếu tố ngẫu nhiên khác).
+
+Một thời điểm (quy tắc) dừng $\tau$ là một biến ngẫu nhiên nhận giá trị nguyên
+không âm sao cho $\{\tau \leq t\} \in \mathcal{F}_t$ với mỗi $t \geq 0$. Nói
+cách khác: tại mỗi thời điểm, chúng ta biết liệu quy tắc dừng đang ra lệnh cho
+chúng ta dừng lại hay tiếp tục. Ký hiệu $\mathcal{T}$ là tập hợp tất cả các
+thời điểm dừng, phụ thuộc ngầm vào $\mathcal{F}$, bao gồm cả những thời điểm có
+thể không bao giờ dừng. Đối với một thời điểm dừng $\tau$, $\sigma$-đại
+số $\mathcal{F}_\tau$ được định nghĩa bởi $\{A \in \mathcal{F}_\infty : A \cap
+\{\tau \leq t\} \in \mathcal{F}_t \text{ với mọi } t \in T\}$.
+
+Ta biết rằng, tập hợp các phân phối $\mathcal{P}$ đại diện cho giả thuyết
+không. Một level-$\alpha$ sequential test cho $\mathcal{P}$ là một tiến trình
+nhị phân $\phi$ sao cho:
+\begin{equation}
+    \sup_{P \in \mathcal{P}} \prob_P(\exists t \geq 1 : \phi_t = 1) \leq
+    \alpha.
+\end{equation}
+
+Giải thích $\phi_t = 1$ là bác bỏ $\mathcal{P}$, điều kiện trên có nghĩa là xác
+suất mà chúng ta sẽ bác bỏ sai giả thuyết không tại bất kỳ thời điểm nào là tối
+đa $\alpha$, nghĩa là với xác suất $1 - \alpha$, $\phi$ bằng dãy tất cả các số
+không. Đây cũng được gọi là các kiểm định một phía (one-sided), kiểm định mở
+(open-ended) hoặc kiểm định có công suất bằng 1 (power-one).
+
+Không mất tính tổng quát, chúng ta có thể giả định rằng nếu $\phi_t = 1$, thì
+$\phi_s = 1$ với mọi $s \geq t$. Hơn nữa, chúng ta định nghĩa $\phi_\infty =
+\lim_{t \to \infty} \phi_t = \sup_{t \in \mathbb{N}} \phi_t$, nghĩa là nếu một
+kiểm định không bác bỏ tại bất kỳ thời điểm hữu hạn nào, thì nó cũng không bác
+bỏ tại vô cực.
+
+Khi đó, chúng ta có thể dễ dàng xác định một sequential test bởi thời điểm dừng
+$\tau := \inf\{t \geq 1 : \phi_t = 1\}$ với quy ước $\inf \emptyset = \infty$.
+Khi đó, một level-$\alpha$ test yêu cầu $\tau < \infty$ với xác suất tối đa
+$\alpha$ dưới mỗi $P \in \mathcal{P}$. Điều này có thể được diễn đạt lại là:
+\begin{equation}
+    \expect_P[\phi_\tau] \leq \alpha,
+\end{equation}
+với mọi $P \in \mathcal{P}$ và mọi $\tau \in \mathcal{T}$.
+
+Trong bối cảnh thời gian rời rạc, một tiến trình khả tích $M$ là một martingale
+cho $P$ nếu:
+\begin{equation}
+    \expect_P[M_t | \mathcal{F}_{t-1}] = M_{t-1}
+\end{equation}
+với mọi $t \in \mathcal{T}_+$, trong đó tất cả các mối quan hệ giữa các biến
+ngẫu nhiên được hiểu là đúng với xác suất 1. $M$ là một supermartingale cho $P$
+nếu nó thỏa mãn điều kiện trên với dấu ``='' được nới lỏng thành ``$\leq$''.
+
+\begin{defn}
+  \begin{enumerate}[label=(\roman*)]
+    \item Một tiến trình $M = (M_t)_{t \in T}$ được gọi là một test
+      (super)martingale cho $\mathcal{P}$ nếu với mọi $P \in \mathcal{P}$, nó
+      thỏa mãn: (a) $M$ không âm với xác suất 1 ($P$-almost surely), (b) $M$ là
+      một (super)martingale dưới $P$, và (c) $\expect_P[M_0] \leq 1$. Một họ
+      các tiến trình $(M^P)_{P \in \mathcal{P}}$ được gọi là một test
+      (super)martingale family nếu mỗi $M^P$ là một test (super)martingale cho
+      $P$.
+
+    \item Một dãy các e-values $E = (E_t)_{t \in T}$ thích nghi với
+      $\mathcal{F}$ được gọi là một e-process nếu nó thỏa mãn một trong hai
+      điều kiện tương đương: (a) $\expect_P[E_\tau] \leq 1$ với bất kỳ thời
+      điểm dừng $\tau \in \mathcal{T}$ và bất kỳ $P \in \mathcal{P}$; (b) tồn
+      tại một họ test martingale $(M^P)_{P \in \mathcal{P}}$ sao cho $E \leq
+      M^P$ với xác suất 1 ($P$-almost surely) cho mỗi $P \in \mathcal{P}$.
+  \end{enumerate}
+\end{defn}
+
+\subsection{Bất đẳng thức Ville}
+
+\begin{thm}[Bất đẳng thức Ville]
+  Nếu $M$ là một e-process cho $\mathcal{P}$, thì ba phát biểu tương đương sau
+  đây sẽ đúng: \begin{align}
+    & P\biggl( \exists t \in \mathbb{N} : M_t \geq \frac{1}{\alpha} \biggr)
+    \leq \alpha \text{ với mọi } P \in \mathcal{P} \text{ và } \alpha \in [0,
+    1]; \\
+    \iff & \sup_{P \in \mathcal{P}} P\biggl( \sup_{t \in \mathbb{N}} M_t \geq
+    \frac{1}{\alpha} \biggr) \leq \alpha \text{ với mọi } \alpha \in [0, 1]; \\
+    \iff & \sup_{P \in \mathcal{P}, \tau \geq 0} P\biggl( M_\tau \geq
+    \frac{1}{\alpha} \biggr) \leq \alpha \text{ với mọi } \alpha \in [0, 1], \\
+  \end{align} trong đó $\tau$ là bất kỳ thời điểm dừng $\mathcal{F}$ nào nhận
+  các giá trị trong $[0, \infty]$.
+\end{thm}
+
+\subsection{Confidence interval, Confidence sequence}
+
+\begin{defn}
+  \begin{enumerate}[label=(\roman*)]
+    \item Với $\alpha \in [0, 1]$, một tập $C(\alpha)$ được gọi là $(1 -
+      \alpha)$-confidence interval cho hàm $\vartheta$ nếu $\prob_P(\vartheta)
+      \in C(\alpha) ) \ge 1 - \alpha$ với mọi $P \in \mathcal{P}$.
+    \item Với $\alpha \in [0, 1]$, một $(1 - \alpha)$-confidence sequence cho
+      một hàm $\vartheta$ là một tiến trình các tập hợp $(C_t(\alpha))_{t \in
+      \mathbb{N}}$ sao cho $C_\tau(\alpha) \subseteq \Theta$ là một $(1 -
+      \alpha)$-CI (khoảng tin cậy) với bất kỳ thời điểm dừng $\tau$ nào. Nó
+      cũng có định nghĩa tương đương sau đây: với mọi $P \in \mathcal{P}$,
+      chúng ta có: \begin{equation}
+      \prob(\vartheta(P) \in C_t(\alpha) \text{ với mọi } t \in \mathbb{N})
+        \geq 1 - \alpha.
+      \end{equation}
+  \end{enumerate}
+\end{defn}
+
+\subsection{Asymptotic confidence sequence}
+
+\begin{defn}
+  $(\hat\mu_t \pm \bar{B}_t)_{t \ge 1}$ được gọi là $(1 - \alpha)$-asymptotic
+  confidence sequence cho $\mu$ nếu tồn tại một $(1 - \alpha)$-confidence
+  sequence cho $\mu$ được cho bởi $(\hat\mu_t \pm \bar{B}_t^\ast)_{t \ge 1}$ và
+  $\bar{B}_t^\ast / \bar{B}_t \stackrel{a.s}{\to} 1$.
+\end{defn}
+
+\input{hypothesis-testing}
+
+\input{estimation}

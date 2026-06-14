@@ -1,0 +1,156 @@
+\subsection{Kiểm định giả thuyết}
+
+Ta có mệnh đề sau:
+
+\begin{prop}
+  Mọi level-$\alpha$ sequential test $\phi$ cho $\mathcal{P}$ đều có thể nhận
+  được bằng cách lấy ngưỡng $1/\alpha$ một e-process $M$ nào đó cho
+  $\mathcal{P}$.
+\end{prop}
+
+Do đó, các e-process cung cấp một khung lý thuyết hoàn chỉnh cho kiểm định
+tuần tự. Thay vì tập trung vào chính kiểm định đó, chúng ta có thể tập trung
+vào việc xây dựng các e-process. Tuy nhiên, chúng ta không chỉ coi e-processes
+là một công cụ để suy ra các kiểm định. Chúng ta coi e-process là các thước đo
+bằng chứng chống lại giả thuyết không: giá trị của chúng càng lớn (hoặc tăng
+lên), chúng ta càng có nhiều bằng chứng chống lại giả thuyết không. Chúng ta
+có thể đặt ngưỡng cho chúng để đưa ra quyết định nếu muốn, nhưng chúng vẫn giữ
+được khả năng diễn giải ngay cả khi không cần đặt ngưỡng.
+
+\subsubsection{Kiểm định qua cá cược}
+
+Có một cách đơn giản để xem các test (super)martingale như các tiến trình tài
+sản phát sinh từ các trò chơi. Ý tưởng chủ chốt như sau:
+
+Để kiểm định một giả thuyết không $\mathcal{P}$, chúng ta thiết lập một trò
+chơi may rủi, trong đó nhà thống kê  thực hiện đặt cược vào mỗi quan sát trước
+khi quan sát nó. Trò chơi này phải thỏa mãn hai tính chất:
+\begin{enumerate}[label=(\alph*)]
+  \item Nếu giả thuyết không là đúng, nghĩa là $P \in \mathcal{P}$, thì không
+    một chiến lược cá cược nào có thể kiếm tiền một cách hệ thống (tức là, nó
+    có thể kiếm tiền do may mắn, nhưng không thể đảm bảo kiếm được tiền);
+
+  \item Nếu giả thuyết không là sai, thì phải tồn tại các chiến lược cá cược
+    ``tốt'' có thể kiếm được tiền (mặc dù người ta có thể không bao giờ chắc
+    chắn về lợi nhuận trong ngắn hạn, nhưng có một cách để đảm bảo kiếm được
+    tiền trong dài hạn).
+\end{enumerate} Nếu một trò chơi như vậy có thể được thiết kế, thì tài sản của
+nhà thống kê trong trò chơi đó trực tiếp là một thước đo bằng chứng chống lại
+giả thuyết không: tài sản càng nhiều (hoặc chính xác hơn là tỉ số giữa tài sản
+cuối cùng và tài sản ban đầu càng lớn), thì càng có nhiều bằng chứng cho thấy
+giả thuyết không có khả năng là sai.
+
+Chúng ta hãy bắt đầu với ví dụ đơn giản nhất, như đã thảo luận trong phần
+trước. Chúng ta chỉ ra cách diễn giải việc kiểm định $P$ trong
+\algorithmname~\ref{alg:simple-P}.
+
+\begin{algorithm}[htbp]
+  \caption{Kiểm định qua cá cược: trường hợp $P$ đơn}
+  \label{alg:simple-P}
+  Khởi tạo tài sản ban đầu cho nhà thống kê $W_0 = 1$\;
+  \For{$t = 1$, $2$, $\ldots\,$}{
+    Nhà thống kê tuyên bố một khoản cược $S_t \colon \mathcal{X} \to [0,
+    \infty]$ sao cho \begin{equation*}
+      \expect_P[S_t(X) \mid X_1, \dots, X_{t - 1}] \le 1
+    \end{equation*}\vspace{-1\baselineskip}\;
+    Quan sát $X_t$\;
+    Cập nhật tài sản của nhà thống kê $W_t = W_{t - 1} \cdot S_t(X_t)$\;
+  }
+\end{algorithm}
+
+Có ba điểm đáng chú ý cần bình luận ngay. Thứ nhất, trong trò chơi trên, ràng
+buộc đối với $S_t$ đơn giản là nó là một e-variable cho $\mathcal{P}$ có điều
+kiện dựa trên quá khứ. Điều này hàm ý ngay lập tức rằng đối với bất kỳ chiến
+lược cá cược nào, tiến trình tài sản $W$ là một test supermartingale cho
+$\mathcal{P}$.
+
+Thứ hai, người ta có thể hỏi: đâu là khoản cược tối ưu? Giả sử để đơn giản rằng
+giả thuyết thay thế $Q$ là đơn giản, và $P \ll Q$. Khi đó, tài sản có thể tăng
+trưởng theo hàm mũ dưới $Q$, và do đó việc tối ưu hóa số mũ là tự nhiên. Điều
+này có nghĩa là chọn $S_t$ để tối ưu hóa $\expect_Q[\log S_t(X) | X_1, \dots,
+X_{t-1}]$ với điều kiện $S_t$ là một e-variable cho $\mathcal{P}$. Câu trả lời
+đã được rút ra, đó là tỉ số khả năng (likelihood ratio) của $Q$ so với $P$, có
+điều kiện dựa trên $X_1, \dots, X_{t-1}$ (phép điều kiện này không liên quan
+nếu $P$ và $Q$ là các phân phối tích i.i.d trên $\mathcal{X}^\infty$, nhưng nó
+lại quan trọng nếu chúng không phải như vậy).
+
+Điểm cuối cùng là nếu người ta muốn kiểm định một giả thuyết không hợp
+$\mathcal{P}$, thay đổi duy nhất đối với giao thức là yêu cầu $S_t$ phải là một
+e-variable cho $\mathcal{P}$, nghĩa là ràng buộc trong giao thức trên phải
+giữ nguyên với mọi $P \in \mathcal{P}$. Khi đó, tiến trình tài sản $W$ là một
+testsupermartingale cho $\mathcal{P}$.
+
+Bây giờ, chúng ta có thể tự nhiên thắc mắc làm thế nào các e-process có thể
+được diễn giải trong khuôn khổ kiểm định qua cá cược này, trái ngược với việc
+chỉ đơn thuần là các test supermartingale. Câu trả lời là diễn giải lý thuyết
+trò chơi của chúng phức tạp hơn một chút. Nhà thống kê không chơi một trò chơi
+duy nhất chống lại $\mathcal{P}$, mà thay vào đó chơi một trò chơi riêng biệt
+chống lại mỗi $P \in \mathcal{P}$, và chấp nhận tài sản ròng của mình là tài
+sản tệ nhất trong tất cả các trò chơi này. Điều này được làm rõ trong
+\algorithmname\ref{alg:composite-P}.
+
+\begin{algorithm}[htbp]
+  \caption{Kiểm định qua cá cược: trường hợp $P$ hợp}
+  \label{alg:composite-P}
+
+  \For{$P \in \mathcal{P}$}{
+    Khởi tạo tài sản ban đầu của nhà thống kê cho trò chơi $P$ $W_0^P = 1$\;
+  }
+  \BlankLine
+  \For{$t = 1$, $2$, $\ldots\,$}{
+    Nhà thống kê tuyên bố một khoản cược $S^P_t \colon \mathcal{X} \to [0,
+    \infty]$ sao cho \begin{equation*}
+      \expect_P[S^P_t(X) \mid X_1, \dots, X_{t - 1}] \le 1
+    \end{equation*}\vspace{-1\baselineskip}\;
+    Quan sát $X_t$\;
+    Cập nhật tài sản trong $P$ của nhà thống kê $W^P_t = W^P_{t - 1} \cdot
+    S^P_t(X_t)$\;
+
+    Tài sản tổng thể của nhà thống kê được cập nhật $W_t = \inf_{P \in
+    \mathcal{P}} W^P_t$\;
+  }
+\end{algorithm}
+
+\subsubsection{Trường hợp giả thuyết không và thay thế đều đơn}
+
+Giả sử chúng ta đang kiểm định một giả thuyết đơn $P$ đối với một giả thuyết
+đơn $Q \ll P$. Nếu chúng ta quan sát dữ liệu i.i.d $X_1, X_2, \dots$ một cách
+tuần tự, thì tiến trình tỉ số khả năng $M$ được cho bởi:
+\begin{equation}
+    M_0 = 1 \text{ và } M_t = \prod_{i=1}^{t} \frac{dQ}{dP}(X_i) \text{ với } t
+    \in \mathbb{N},
+\end{equation}
+là một e-process thích nghi với sự lọc được tạo ra bởi dữ liệu, trong đó
+$dQ/dP(X)$ là tỉ số khả năng của $Q$ đối với $P$ khi quan sát $X$. Chúng ta đã
+bắt gặp e-process này trong Mục 7.2, được sử dụng trong SPRT. Hơn nữa, dễ dàng
+thấy rằng $M$ là một test martingale cho $P$. Trên thực tế, ngay cả khi dữ liệu
+không phải i.i.d, tỉ số khả năng dựa trên $n$ điểm dữ liệu đầu tiên:
+\begin{equation}
+    M_n = \frac{dQ}{dP}(X_1, \dots, X_n),
+\end{equation}
+vẫn là một test martingale cho $P$ (có thể kiểm tra bằng phép lấy điều kiện).
+
+Khi kiểm định một giả thuyết không đơn giản $P$, việc sử dụng một test
+martingale để xây dựng các e-process là tối ưu: Bất kỳ e-process nào cho $P$
+đều có thể bị chặn trên bởi Snell envelope của nó dưới $P$ (vốn là một test
+supermartingale), và đến lượt nó, lại có thể bị chi phối bởi test martingale
+cho $P$ được cho bởi phân tích Doob.
+
+Trong bối cảnh kiểm định giả thuyết không đơn $P$ đối với $Q \ll P$, tỉ số
+khả năng $M_t$ là tối ưu logarit trong số tất cả các e-variable sử dụng $t$
+điểm dữ liệu đầu tiên với mọi $t \in \mathbb{N}$.
+
+Khi đó, khoản cược log-optimal là \begin{equation}
+  S_t(X) = \frac{dQ}{dP}(X) = \frac{q(X)}{p(X)},
+\end{equation} trong đó có đẳng thức sau nếu $P$, $Q$ các các hàm mật độ xác
+suất $p$ và $q$ tương ứng. Khi đó $\expect_P[W_\tau] \le 1$, $\expect_P[\log
+W_\tau] \le 0$. Trong khi đó, $\expect_Q[\log W_T] > 0$ được lấy tối đa và
+tương đương $\KL(Q, P)$.
+
+\subsubsection{Các trường hợp khác}
+
+Các trường hợp giả thuyết không hợp, giả thuyết thay thế đơn; giả thuyết
+không đơn, giả thuyết thay thế hợp; hay cả giả thuyết không và thay thế đều hợp
+đều khá phức tạp. Do đó, báo cáo này không trình bày các phần này. Ta có thể
+tham khảo thêm trong \cite{ramdas2023savi}
+hoặc \cite{ramdas2025ebook}.

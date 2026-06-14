@@ -5,7 +5,7 @@
 % \usetikzlibrary{arrows.meta,automata,positioning}
 \usepackage{import}
 \usepackage{apacite}
-\usepackage[inline]{enumitem}
+\usepackage{enumitem}
 \usepackage{amsmath,amsfonts,amssymb}
 
 
@@ -33,6 +33,11 @@
 \AtBeginDocument{\renewcommand{\tblrcontheadname}{(Tiếp theo)}}
 \UseTblrLibrary{varwidth}
 \UseTblrLibrary{diagbox}
+
+
+\usepackage[ruled,vlined]{algorithm2e}
+\newcommand{\algorithmname}{Thuật toán}
+\DontPrintSemicolon
 
 
 \usepackage{amsthm}
@@ -103,3 +108,4 @@
 
 \DeclareMathOperator{\expect}{\mathbb{E}}
 \DeclareMathOperator{\prob}{\mathbb{P}}
+\DeclareMathOperator{\KL}{KL}

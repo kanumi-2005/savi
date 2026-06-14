@@ -1,0 +1,148 @@
+\subsection{Ước lượng}
+
+\subsubsection{Khoảng tin cậy cho giá trị trung bình}
+
+\begin{exmp}
+  Nếu $X_1$, $X_2$, $\ldots\,$ là các biến ngẫu nhiên i.i.d Gaussian hoặc bị
+  chặn trong $[-1, 1]$ thì \begin{equation}
+    \frac{ \sum_{i = 1}^n X_i }{ n } \pm 1.71 \sqrt{ \frac{ \log\log(2n) + 0.72
+    \log ( 10.4 / \alpha ) }{ n } }
+  \end{equation} là một $(1 - \alpha)$ confidence sequence cho $\mu$, tương tự
+  như \begin{equation}
+    \bigcap_{s \le n} \frac{ \sum_{i = 1}^n X_i }{ n } \pm 1.71 \sqrt{ \frac{
+      \log\log(2n) + 0.72 \log ( 10.4 / \alpha ) }{ n } }.
+  \end{equation}
+  Ta thấy rằng, độ rộng của $(1 - \alpha)$ confidence sequence lớn hơn so với
+  khoảng tin cậy tương ứng nhưng chênh lệch không thực sự ảnh hưởng nhiều. Để
+  thấy sự khác biệt giữa hai kết quả này. Ta dùng đến tỉ lệ bao phủ sai tích
+  lũy (cummulative miscoverage rate). Tỉ lệ này ứng với mỗi $t$ chính là tỉ lệ
+  tồn $t$ khoảng tin cậy đầu tiên bị bao phủ sai với các lần chạy. Do khoảng
+  tin cậy chỉ đảm bảo sai lầm ở các lần chạy ở một thời điểm $t$ là dưới
+  $\alpha$ nên khi xét đồng thời $t$ khoảng tin cậy thì tỉ lệ bao phủ đồng thời
+  của $t$ khoảng tin cậy gần như bằng $0$ (hay tỉ lệ bao phủ sai gần như là
+  $1$). Tuy nhiên, theo định nghĩa của confidence sequence, tỉ lệ bao phủ sai
+  tích lũy luôn được đảm bảo dưới $\alpha$ do tính đồng thời của nó. Điều này
+  cũng cho thấy tính hợp lệ tại mọi thời điểm của confidence sequence so với
+  khoảng tin cậy. (Xem minh họa tại trang số 8, nửa bài giảng sau.)
+\end{exmp}
+
+\subsubsection{Khoảng tin cậy cho phân vị}
+
+\paragraph{Một phân vị cố định}
+
+\begin{exmp}
+  Đặt \begin{equation*}
+    u_t := \sqrt{ \frac{ 0.73 \log\log(2.04t) + 0.52 \log(9.97/\alpha) } { t }
+    }
+  \end{equation*} Khi đó, \begin{equation*}
+    \prob(\forall t \in \mathbb{N} : \hat{Q}_t(1/ 2 - u_t) \le Q(1/2) \le
+    \hat{Q}_t(1/2 + u_t)) \ge 1 - \alpha.
+  \end{equation*} Tức là \begin{equation*}
+    [\hat{Q}_t(1/ 2 - u_t), \hat{Q}_t(1/2 + u_t))], \quad \forall t
+  \end{equation*} là một $(1 - \alpha)$ confidence sequence cho phân vị $1/2$
+(trung vị).
+
+\end{exmp}
+
+
+\paragraph{Toàn bộ phân vị đồng thời}
+
+\begin{exmp}
+  Đặt \begin{equation*}
+    u_t := \sqrt{ \frac{ \log\log(et) + 0.75 \log(34 / \alpha) } { t } }.
+  \end{equation*} Khi đó, \begin{equation*}
+    \prob(\forall t \in \mathbb{N}, p \in (0, 1): \hat{Q}_t(p - u_t) \le Q(p)
+    \le \hat{Q}_t(p + u_t) ) \ge 1 - \alpha.
+  \end{equation*} Tức là ta có đồng thời các khoảng tin cậy cho từng thời điểm
+  với cùng độ rộng cho tất cả phân vị khác nhau. Và chúng đều tạo thành một $(1
+  - \alpha)$ confidence sequence đồng thời cho tất cả các phân vị.
+\end{exmp}
+
+\subsubsection{Ước lượng ma trận hiệp phương sai tuần tự}
+
+Xét biến ngẫu nhiên $X \in \mathbb{R}^d$ với kỳ vọng $\expect[X] = 0$ và điều
+kiện bị chặn $|X_i| \le b$. Sai số hội tụ của ước lượng $\hat{\Sigma}_n$ so với
+ma trận thực $\Sigma$ được chặn trên với xác suất cao như sau:
+\begin{equation}
+  \big\| \hat{\Sigma}_n - \Sigma \big\|_{\text{op}} \lesssim \sqrt{\frac{b^2
+  \log(d \log n)}{n}} + \frac{b^2 \log(d \log n)}{n}.
+\end{equation}
+
+\subsubsection{Ước lượng qua cá cược}
+
+Cho $X_1$, $X_2$, $\ldots\,$ là các biến ngẫu nhiên i.i.d thuộc $[0, 1]$ với
+trung bình $\mu$. Ta thiết kế trò chơi như
+\algorithmname~\ref{alg:esitmate-game}. Khi đó đặt \begin{equation*}
+  C_t := \{ m \in [0, 1]: K^m_t < 1/\alpha \}
+\end{equation*} với ý nghĩa rằng nhà khoa học không thắng được nhiều tiền. Ta
+có định lý (có thể chứng minh thông qua kiểm định qua cá cược) nói rằng
+$(C_t)_{t \ge 1}$ là một confidence sequence cho $\mu$ với mọi chiến lược đặt
+cược.
+
+\begin{algorithm}[htbp]
+  \caption{Ước lượng qua cá cược}
+  \label{alg:esitmate-game}
+
+  Khởi tạo vốn ban đầu $K^m_0 = 1$ cho mỗi trò chơi $m \in [0, 1]$\;
+
+  \For{$t = 1, 2, \dots$}{
+    Với mỗi $m \in [0, 1]$, nhà thống kê đặt cược $\lambda_t^m \in [ -1/( 1- m
+    ), 1/m ]$\;
+    Quan sát $X_t$\;
+    Cập nhật tài sản trong game $m$ thành $K^m_t = K^m_{t - 1} \cdot (1 +
+    \lambda^m_t(X_t - m))$\;
+  }
+\end{algorithm}
+
+Khi đó, vấn đề trở thành ta cần một chiến lược đặt cược để các tập hợp này càng
+nhỏ càng tốt. Một trong những chiến lược là GRAPA (Grow Rate Adaptive to the
+Particular Alternative), ta đặt cược như sau: \begin{equation}
+  \lambda^m_t(P) := \arg\max_{\lambda \in [-1/(1 - m), 1/m]} \expect_P[\log(1 +
+  \lambda(X_t - m)) \mid \mathcal{F}_{t - 1}].
+\end{equation} Nhưng ta không biết $P$, lời giải xấp xỉ: lấy đạo hàm theo biến
+$\lambda$, cho đạo hàm bằng 0 (áp dụng điều kiện KKT), khai triển Taylor và
+thay thế bằng các ước lượng thực nghiệm. Khi đó ta có giá trị cho khoản cược là
+\begin{equation*}
+  \lambda^m_t = \frac{\hat\mu_t - m}{ \hat\sigma_t^2 + (\hat\mu_t - m)^2 },
+\end{equation*} trong đó các $\mu_t$ và $\sigma_t^2$ được tính từ $t - 1$ mẫu
+đầu.
+
+\subsection*{Chiến lược cá cược 2: Phương pháp hỗn hợp (Mixture)}
+
+Chiến lược thứ hai là Mixture. Chiến lược này được củng cố và phát triển thông
+qua hàng loạt các nghiên cứu gần đây, tiêu biểu như Waudby-Smith \& Ramdas
+(2024), Jun \& Orabona (2024), và Shekhar \& Ramdas (2024). Theo đó, confidence
+sequence được định nghĩa dựa trên một tích phân hỗn hợp như sau:
+\begin{equation}
+  C_t := \Biggl\{ m \in [0,1] : \int_{-1/(1-m)}^{1/m} \prod_{i=1}^t \big(1 +
+  \lambda(X_i - m)\big) \, d\nu(\lambda) < \frac{1}{\alpha} \Biggr\}
+\end{equation} Về mặt triển khai thực tiễn, việc tính toán tích phân liên tục
+thường được thay thế bằng phương pháp rời rạc hóa (discretize) không gian của
+hỗn hợp. Khía cạnh đáng chú ý là phép xấp xỉ này hoàn toàn không làm ảnh hưởng
+đến tính hợp lệ thống kê (validity) của confidence sequence.
+
+Tuy nhiên, nhằm bảo toàn sức mạnh kiểm định (power) khi lượng dữ liệu tăng lên,
+lưới rời rạc hóa của hỗn hợp bắt buộc phải được tinh chỉnh mịn hơn (finer) theo
+thời gian. Cuối cùng, để đánh giá và phân tích hiệu năng của chiến lược này, ta
+có thể thiết lập mối liên hệ trực tiếp với bài toán Tối ưu hóa Danh mục Đầu tư
+của Cover (Cover's Portfolio Optimization). Dựa trên cơ sở lý thuyết đó, việc
+sử dụng một phân phối hỗn hợp đều (uniform mixture) thường là phương án đủ để
+đảm bảo tính tối ưu.
+
+\subsubsection{}
+
+Trong suy luận nhân quả và phân tích thực nghiệm, sự kết hợp giữa Tác động can
+thiệp trung bình (ATE) và asymptotic confidence sequence (AsympCS) mang lại một
+giải pháp đột phá cho bài toán đánh giá dữ liệu liên tục.
+
+Trong khi ATE đóng vai trò là thước đo cốt lõi giúp xác định hiệu quả trung
+bình thực sự của một sự can thiệp (như một tính năng công nghệ mới hay một phác
+đồ điều trị) trên toàn bộ quần thể, thì việc liên tục theo dõi ATE để ra quyết
+định sớm lại rất dễ vi phạm các nguyên tắc thống kê truyền thống. Đây là lúc
+AsympCS trở thành mảnh ghép hoàn hảo. Bằng cách nới lỏng các ràng buộc toán học
+khắt khe tuyệt đối thành dạng xấp xỉ tiệm cận (thường dựa trên Định lý giới hạn
+trung tâm), AsympCS cung cấp một dải an toàn cho phép bạn liên tục "nhìn" vào
+kết quả ATE theo thời gian thực (anytime-valid inference). Nhờ đó, các nhà
+nghiên cứu và kỹ sư dữ liệu có thể linh hoạt dừng thử nghiệm sớm ngay khi hiệu
+quả của can thiệp đã đủ rõ ràng, vừa tiết kiệm thời gian, chi phí, lại vừa đảm
+bảo tính hợp lệ thống kê chặt chẽ trong dài hạn.
