@@ -3,7 +3,7 @@
 Ta có mệnh đề sau:
 
 \begin{prop}
-  Mọi level-$\alpha$ sequential test $\phi$ cho $\mathcal{P}$ đều có thể nhận
+  Mọi \gls{st} mức ý nghĩa $\alpha$ $\phi$ cho $\mathcal{P}$ đều có thể nhận
   được bằng cách lấy ngưỡng $1/\alpha$ một e-process $M$ nào đó cho
   $\mathcal{P}$.
 \end{prop}
@@ -50,9 +50,9 @@ trước. Chúng ta chỉ ra cách diễn giải việc kiểm định $P$ trong
   Khởi tạo tài sản ban đầu cho nhà thống kê $W_0 = 1$\;
   \For{$t = 1$, $2$, $\ldots\,$}{
     Nhà thống kê tuyên bố một khoản cược $S_t \colon \mathcal{X} \to [0,
-    \infty]$ sao cho \begin{equation*}
+    \infty]$ sao cho \begin{equation}
       \expect_P[S_t(X) \mid X_1, \dots, X_{t - 1}] \le 1
-    \end{equation*}\vspace{-1\baselineskip}\;
+    \end{equation}\vspace{-1\baselineskip}\;
     Quan sát $X_t$\;
     Cập nhật tài sản của nhà thống kê $W_t = W_{t - 1} \cdot S_t(X_t)$\;
   }
@@ -78,7 +78,7 @@ lại quan trọng nếu chúng không phải như vậy).
 $\mathcal{P}$, thay đổi duy nhất đối với giao thức là yêu cầu $S_t$ phải là một
 e-variable cho $\mathcal{P}$, nghĩa là ràng buộc trong giao thức trên phải
 giữ nguyên với mọi $P \in \mathcal{P}$. Khi đó, tiến trình tài sản $W$ là một
-testsupermartingale cho $\mathcal{P}$.
+test supermartingale cho $\mathcal{P}$.
 
 Bây giờ, chúng ta có thể tự nhiên thắc mắc làm thế nào các e-process có thể
 được diễn giải trong khuôn khổ kiểm định qua cá cược này, trái ngược với việc
@@ -99,9 +99,9 @@ sản tệ nhất trong tất cả các trò chơi này. Điều này được l
   \BlankLine
   \For{$t = 1$, $2$, $\ldots\,$}{
     Nhà thống kê tuyên bố một khoản cược $S^P_t \colon \mathcal{X} \to [0,
-    \infty]$ sao cho \begin{equation*}
+    \infty]$ sao cho \begin{equation}
       \expect_P[S^P_t(X) \mid X_1, \dots, X_{t - 1}] \le 1
-    \end{equation*}\vspace{-1\baselineskip}\;
+    \end{equation}\vspace{-1\baselineskip}\;
     Quan sát $X_t$\;
     Cập nhật tài sản trong $P$ của nhà thống kê $W^P_t = W^P_{t - 1} \cdot
     S^P_t(X_t)$\;

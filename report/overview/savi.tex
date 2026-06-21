@@ -4,39 +4,31 @@ Trong thống kê cổ điển, kiểm định giả thuyết thường được
 \textbf{p-value}. Giả sử $P(n)$ là p-value được tính từ $n$ mẫu đầu tiên
 (ví dụ từ kiểm định t-test) và mức ý nghĩa được chọn là $\alpha$.
 Dưới giả thuyết không ($H_0$), p-value thỏa mãn
-
-\[
+\begin{equation}
 \Pr(P(n)\leq \alpha)\leq \alpha,
-\]
-
+\end{equation}
 nghĩa là xác suất mắc sai lầm loại I (false positive) không vượt quá $\alpha$
 khi kích thước mẫu $n$ được xác định trước.
 
 Tuy nhiên, trong nhiều ứng dụng hiện đại, dữ liệu không được thu thập một lần mà xuất hiện theo thời gian. Nhà nghiên cứu thường xuyên kiểm tra kết quả trong quá trình thu thập dữ liệu và quyết định dừng hoặc tiếp tục thí nghiệm dựa trên những gì đã quan sát được. Gọi $\tau$ là thời điểm dừng của thí nghiệm. Khi đó, ta quan tâm đến xác suất
-
-\[
+\begin{equation}
 \Pr(P(\tau)\leq \alpha).
-\]
-
-Đáng tiếc là nói chung
-
-\[
+\end{equation} Đáng tiếc là nói chung
+\begin{equation}
 \Pr(P(\tau)\leq \alpha)\nleq \alpha.
-\]
+\end{equation}
 
 Nói cách khác, tính hợp lệ của p-value không còn được đảm bảo khi thời điểm dừng phụ thuộc vào dữ liệu.
 
 Một ví dụ điển hình là chiến lược
-
-\[
+\begin{equation}
 \tau
 =
 \min
 \left\{
 n\in\mathbb{N}:P(n)\leq \alpha
 \right\},
-\]
-
+\end{equation}
 tức là tiếp tục thu thập dữ liệu cho đến khi p-value trở nên có ý nghĩa thống kê. Trong trường hợp này, xác suất bác bỏ sai giả thuyết không có thể lớn hơn rất nhiều so với mức $\alpha$ mong muốn, thậm chí tiến gần đến 1 nếu quá trình thu thập dữ liệu được kéo dài đủ lâu.
 
 Hiện tượng này được gọi là \textbf{optional stopping},
@@ -53,41 +45,34 @@ Giả sử $(L^{(n)},U^{(n)})$ là khoảng tin cậy mức $(1-\alpha)$
 được xây dựng từ $n$ quan sát đầu tiên nhằm ước lượng tham số $\theta$.
 
 Khi kích thước mẫu $n$ được cố định trước, khoảng tin cậy thỏa mãn tính chất bao phủ
-
-\[
+\begin{equation}
 \Pr\!\left(
 \theta \in \left(L^{(n)},U^{(n)}\right)
 \right)
 \geq 1-\alpha,
 \qquad \forall n\geq 1.
-\]
-
+\end{equation}
 Nói cách khác, xác suất để khoảng tin cậy chứa giá trị thật của tham số
 ít nhất bằng $1-\alpha$.
 
 Tuy nhiên, nếu thời điểm dừng của thí nghiệm là một biến ngẫu nhiên $\tau$
 phụ thuộc vào dữ liệu quan sát được, chẳng hạn
-
-\[
+\begin{equation}
 \tau
 =
 \min
 \left\{
 n\in\mathbb{N}:L^{(n)}>0
 \right\},
-\]
-
+\end{equation}
 tức là tiếp tục thu thập dữ liệu cho đến khi cận dưới của khoảng tin cậy
-lớn hơn 0, thì tính chất bao phủ nói trên không còn được đảm bảo.
-
-Cụ thể,
-
-\[
+lớn hơn 0, thì tính chất bao phủ nói trên không còn được đảm bảo. Cụ thể,
+\begin{equation}
 \Pr\!\left(
 \theta \in \left(L^{(\tau)},U^{(\tau)}\right)
 \right)
 \ngeq 1-\alpha.
-\]
+\end{equation}
 
 Trong nhiều trường hợp, xác suất bao phủ thực tế có thể giảm mạnh,
 thậm chí tiến gần về 0. Điều này cho thấy khoảng tin cậy cổ điển cũng

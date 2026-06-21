@@ -14,15 +14,15 @@ Phát biểu này là một giả thuyết khoa học. Nói cách khác, Muriel 
 Trong thí nghiệm gốc, tám cốc trà được chuẩn bị, gồm bốn cốc thuộc mỗi loại. Các cốc được sắp xếp ngẫu nhiên và Muriel được yêu cầu xác định loại của từng cốc.
 
 Nếu Muriel phân loại hoàn toàn chính xác thì xác suất xảy ra kết quả đó dưới giả thuyết không là:
-\[
+\begin{equation}
     \frac{1}{70} \approx 0.014
-\]
+\end{equation}
 Đây chính là p-value của phép kiểm định. Một giá trị nhỏ như vậy được xem là bằng chứng chống lại giả thuyết không và ủng hộ tuyên bố của Muriel.
 
 Tuy nhiên, với lợi thế của hơn một thế kỷ phát triển thống kê, có thể thấy rằng thiết kế thí nghiệm này đặt Muriel vào một tình thế khá bất lợi. Nếu bà chỉ mắc một lỗi thì xác suất thu được kết quả tương tự hoặc tốt hơn dưới giả thuyết không tăng lên:
-\[
+\begin{equation}
     \frac{17}{70} \approx 0.24
-\]
+\end{equation}
 Giá trị này không còn đủ nhỏ để bác bỏ giả thuyết không. Nói cách khác, chỉ một sai sót nhỏ cũng khiến bằng chứng thống kê gần như biến mất. Điều này phản ánh một hạn chế cơ bản của kiểm định cổ điển: toàn bộ bằng chứng được tóm tắt thành một kết quả cuối cùng sau khi thí nghiệm kết thúc.
 
 Hơn nữa, thí nghiệm phải được thiết kế với kích thước mẫu cố định ngay từ đầu. Người nghiên cứu không được phép tiếp tục thu thập dữ liệu nếu bằng chứng còn chưa đủ mạnh, cũng không được phép dừng sớm khi bằng chứng đã rất rõ ràng. Việc liên tục theo dõi dữ liệu và quyết định thời điểm dừng dựa trên dữ liệu có thể làm mất hiệu lực của p-value truyền thống.
@@ -58,78 +58,78 @@ Theo quan điểm này, tài sản tích lũy được trong trò chơi trở th
 \paragraph{Từ trò chơi cá cược đến suy luận SAVI}
 
 Sau khi thiết lập trò chơi cá cược, Leila bắt đầu với một đơn vị tài sản ban đầu:
-\[
+\begin{equation}
     L_0 = 1
-\]
+\end{equation}
 
 Ở mỗi vòng $i$, trước khi quan sát kết quả, cô lựa chọn một tỷ lệ đặt cược $\lambda_i \in [0,1]$. Các mức cược này có thể phụ thuộc vào toàn bộ lịch sử quan sát trước đó nhưng không được phụ thuộc vào kết quả của vòng hiện tại. Trong lý thuyết martingale, các mức cược như vậy được gọi là \textit{predictable bets} (cược dự báo được).
 
 Kết quả của vòng chơi được ký hiệu bởi:
-\[
+\begin{equation}
     R_i =
     \begin{cases}
         +1, & \text{nếu dự đoán đúng} \\
         -1, & \text{nếu dự đoán sai}
     \end{cases}
-\]
+\end{equation}
 
 Tài sản được cập nhật theo quy tắc:
-\[
+\begin{equation}
     L_i = L_{i-1}(1+\lambda_i R_i)
-\]
+\end{equation}
 
 Ví dụ, giả sử ở vòng đầu tiên Leila đặt cược $20\%$ tài sản hiện có vào dự đoán của mình, tức là $\lambda_1=0.2$. Nếu dự đoán sai thì $R_1=-1$ và tài sản trở thành:
-\[
+\begin{equation}
     L_1 = L_0(1+\lambda_1 R_1) = 1(1-0.2) = 0.8
-\]
+\end{equation}
 
 Ở vòng tiếp theo, Leila tăng mức cược lên $\lambda_2=0.4$. Nếu lần này dự đoán đúng thì $R_2=+1$ và:
-\[
+\begin{equation}
     L_2 = L_1(1+\lambda_2 R_2) = 0.8(1+0.4) = 1.12
-\]
+\end{equation}
 
 Tổng quát, tài sản sau $t$ vòng được xác định bởi:
-\[
+\begin{equation}
     L_t = \prod_{i=1}^{t} (1+\lambda_i R_i)
-\]
+\end{equation}
 
 Đây là quá trình tài sản (\textit{wealth process}) trung tâm của phương pháp kiểm định bằng cá cược.
 
 \paragraph{Martingale dưới giả thuyết không}
 
 Giả sử giả thuyết không $H_0$ là đúng, nghĩa là Leila không thể dự đoán tốt hơn ngẫu nhiên. Khi đó:
-\[
+\begin{equation}
     \mathbb{E}_{H_0}[R_i \mid \mathcal{F}_{i-1}] = 0
-\]
+\end{equation}
 trong đó $\mathcal{F}_{i-1}$ là toàn bộ thông tin có sẵn trước vòng $i$.
 
 Từ đó suy ra:
-\[
+\begin{equation}
     \mathbb{E}_{H_0} [ L_i \mid \mathcal{F}_{i-1} ] = L_{i-1}
-\]
+\end{equation}
 nghĩa là quá trình $(L_t)_{t\ge0}$ là một martingale không âm (\textit{nonnegative martingale}). Nói cách khác, dưới giả thuyết không, trò chơi là công bằng và người chơi không thể làm giàu một cách có hệ thống.
 
 \paragraph{Định lý dừng tùy chọn và Bổ đề Fatou}
 
 Một ưu điểm quan trọng của martingale không âm là tính ổn định dưới các quy tắc dừng dựa trên dữ liệu. Nếu $\tau$ là bất kỳ thời điểm dừng nào (ngay cả khi thời gian dừng có thể tiến ra vô cùng), kết hợp Bổ đề Fatou và Định lý dừng tùy chọn (\textit{Optional Stopping Theorem}), ta luôn có:
-\[
+\begin{equation}
     \mathbb{E}_{H_0}[L_\tau] \leq 1
-\]
+\end{equation}
 Kết quả này vẫn đúng ngay cả khi người nghiên cứu liên tục theo dõi dữ liệu và quyết định thời điểm dừng sau khi đã quan sát các kết quả trung gian. Điều này khắc phục trực tiếp vấn đề \textit{optional stopping}, vốn là một trong những hạn chế chí mạng của p-value truyền thống.
 
 \paragraph{Bất đẳng thức Ville}
 
 Một hệ quả mạnh hơn được cho bởi bất đẳng thức Ville (phiên bản tuần tự của bất đẳng thức Markov đối với martingale không âm):
-\[
+\begin{equation}
     \Pr_{H_0} \left( \sup_{t\ge 0} L_t \ge \frac{1}{\alpha} \right) \le \alpha
-\]
+\end{equation}
 
 Bất đẳng thức này phát biểu rằng nếu giả thuyết không đúng thì xác suất để tài sản vượt ngưỡng $1/\alpha$ tại bất kỳ thời điểm nào đều không vượt quá $\alpha$.
 
 Ví dụ, với $\alpha=0.02$:
-\[
+\begin{equation}
     \frac{1}{\alpha} = 50
-\]
+\end{equation}
 Do đó, nếu $H_0$ đúng thì xác suất để Leila biến $1$ đơn vị tài sản thành $50$ đơn vị tài sản hoặc nhiều hơn chỉ nhờ may mắn là không vượt quá $2\%$.
 
 \paragraph{E-process và p-process}
@@ -137,26 +137,26 @@ Do đó, nếu $H_0$ đúng thì xác suất để Leila biến $1$ đơn vị t
 Do tài sản chỉ có thể tăng đáng kể khi xuất hiện bằng chứng chống lại giả thuyết không, nên $L_t$ có thể được sử dụng như một thước đo trực tiếp của bằng chứng thống kê. Trong khuôn khổ SAVI, quá trình $(L_t)_{t\ge0}$ được gọi là một \textit{e-process}. Giá trị của $L_t$ càng lớn thì bằng chứng chống lại $H_0$ càng mạnh.
 
 Từ e-process, ta có thể xây dựng một p-process thông qua:
-\[
+\begin{equation}
     p_t = \min\left(1, \inf_{s\le t} \frac{1}{L_s}\right)
-\]
+\end{equation}
 \textit{(Lưu ý: Việc bổ sung hàm $\min(1,\dots)$ là bắt buộc về mặt lý thuyết để đảm bảo p-value luôn nằm trong khoảng hợp lệ $[0,1]$).} Đại lượng $p_t$ đóng vai trò như một \textit{anytime-valid p-value}, nghĩa là nó vẫn hợp lệ tại mọi thời điểm quan sát.
 
 \paragraph{Kiểm định tuần tự}
 
 Một kiểm định tuần tự mức ý nghĩa $\alpha$ được xác định chặt chẽ nhất thông qua một thời điểm dừng (\textit{stopping time}):
-\[
+\begin{equation}
     \tau_\alpha = \inf\left\{t : L_t \ge \frac{1}{\alpha}\right\}
-\]
+\end{equation}
 
 Hoặc nếu biểu diễn dưới dạng quy tắc quyết định tại thời điểm $t$, ta bác bỏ $H_0$ nếu tài sản \textbf{đã từng} vượt ngưỡng trong quá khứ (chứ không chỉ xét riêng giá trị hiện tại):
-\[
+\begin{equation}
     \varphi_t = \mathbf{1}\left\{\sup_{s\le t} L_s \ge \frac{1}{\alpha}\right\}
-\]
+\end{equation}
 
 Nhờ bất đẳng thức Ville, xác suất bác bỏ sai giả thuyết không (Sai lầm loại I) luôn được kiểm soát ở mức không vượt quá $\alpha$, bất kể thời điểm dừng được lựa chọn như thế nào:
-\[
+\begin{equation}
     \Pr_{H_0}(\tau_\alpha < \infty) \le \alpha
-\]
+\end{equation}
 
 Đây chính là cơ chế cốt lõi giúp phương pháp \textit{Sequential Anytime-Valid Inference} cung cấp suy luận thống kê chặt chẽ, an toàn và hợp lệ tại mọi thời điểm tiếp nhận dữ liệu.

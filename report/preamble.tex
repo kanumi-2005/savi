@@ -64,49 +64,44 @@
 \graphicspath{{\figurespath}}
 \newcommand{\tablespath}{\resourcespath/tables}
 
-% Terminology config
-\ExplSyntaxOn
-
-\msg_new:nnn { report } { missing-term }
-  { warning:~the~term~'#1'~is~not~defined! }
-
-\cs_new:Nn \report_apply_case:nn {
-  \str_case_e:nnF { #1 }
-    {
-      { \text_uppercase:n { #1 } } { \text_uppercase:n { #2 } }
-      { \text_lowercase:n { #1 } } { #2 }
-      { \text_titlecase_first:n { \text_lowercase:n {#1} } }
-        { \text_titlecase_first:n { #2 } }
-      { \text_titlecase_all:n { \text_lowercase:n {#1} } }
-        { \text_titlecase_all:n { #2 } }
-    }
-    { #1 }
-}
-
-\cs_new:Nn \report_handle_tr:nn {
-  \cs_if_exist:cTF { \text_lowercase:n {#1}-#2 }
-    { \report_apply_case:nn { #1 } { \use:c { \text_lowercase:n {#1}-#2 } } }
-    {
-      \msg_warning:nne { report } { missing-term }
-      { \text_lowercase:n {#1}-#2 }
-      #1
-    }
-}
-
-\NewExpandableDocumentCommand{\tr}{ O{vn} m }
-  {
-    \texorpdfstring
-     { \report_handle_tr:nn {#2} {#1} }
-     { \text_purify:n { \report_handle_tr:nn {#2} {#1} } }
-  }
-
-\NewDocumentCommand{\trdef}{ O{vn} m m }
-{
-  \exp_args:Nc \tl_set:Nn {#2-#1} {#3}
-}
-
-\ExplSyntaxOff
-
 \DeclareMathOperator{\expect}{\mathbb{E}}
 \DeclareMathOperator{\prob}{\mathbb{P}}
 \DeclareMathOperator{\KL}{KL}
+
+\usepackage[toc,xindy={language=vietnamese, codepage=utf8}]{glossaries}
+\makeglossaries
+
+\newglossaryentry{filtered}{
+  name={được lọc},
+  description={filtered}
+}
+
+\newglossaryentry{filtration}{
+  name={bộ lọc},
+  description={filtration}
+}
+
+\newglossaryentry{cs}{
+  name={dãy tin cậy},
+  description={confidence sequence}
+}
+
+\newglossaryentry{likelihood-ratio}{
+  name={tỉ số khả năng},
+  description={likelihood ratio}
+}
+
+\newglossaryentry{test}{
+  name={kiểm định},
+  description={test}
+}
+
+\newglossaryentry{st}{
+  name={kiểm định tuần tự},
+  description={sequential test}
+}
+
+\newglossaryentry{acs}{
+  name={dãy tin cậy tiệm cận},
+  description={asymptotic confidence sequence}
+}
