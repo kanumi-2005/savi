@@ -11,9 +11,9 @@
 
   \begin{defn}
     \begin{itemize}
-      \item Kiểm định $\phi$ là biến ngẫu nhiên nhận giá trị trong $[0, 1]$
-        thỏa mãn $\prob(P \leq \alpha) \leq \alpha$ với mọi $\alpha \in (0,
-        1)$. Tỉ lệ sai lầm loại I đối với $P$ là $\expect_P[\phi]$.
+      \item Kiểm định $\phi$ là biến ngẫu nhiên nhận giá trị trong $[0, 1]$. Tỉ
+        lệ sai lầm loại I đối với $P$ là $\expect_P[\phi]$. Kiểm định mức ý
+        nghĩa $\alpha$ nếu tỉ lệ sai lầm loại I không quá $\alpha$.
       \item Kiểm định tuần tự là một tiến trình nhị phân $\phi$ sao cho
         $\prob_{P \in \mathcal{P}}(\exists t \le 1 : \phi_t  = 1) \le \alpha$.
     \end{itemize}
@@ -33,7 +33,7 @@
 
 \begin{frame}
   \begin{defn}
-    Nếu $\mathcal{F}$ là sự lọc, tức là có $\mathcal{F}_1 \subseteq
+    Nếu $\mathcal{F}$ được lọc, tức là có bộ lọc $\mathcal{F}_1 \subseteq
     \mathcal{F}_2 \subseteq \dotsb$ $M$ là test supermartingale cho
     $\mathcal{P}$ nếu $M \ge 0$, $M_0 = 1$ và $\expect_P[M_t\mid \mathcal{F}_{t
     - 1}] \le M_{t - 1}$ với xác suất 1 ($P$-almost surely), $\forall P \in
@@ -147,8 +147,6 @@
     \caption{Ước lượng cho phân vị phân phối Cauchy}
   \end{figure}
 \end{frame}
-
-\subsection{Ước lượng qua cá cược}
 
 \begin{frame}
 
