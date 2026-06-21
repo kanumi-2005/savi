@@ -82,9 +82,9 @@
 
 \begin{frame}
   \begin{defn}
-    Confidence sequence cho một tham số $\theta$ là dãy các khoảng tin cậy
-    $(L_n, U_n)$ được tạo từ $n$ mẫu đầu và đảm bảo bao phủ đồng thời:
-    $\prob(\forall t \ge 1 : \theta \in (L_n, U_n)) \ge 1 - \alpha$.
+    Dãy tin cậy (confidence sequence) cho một tham số $\theta$ là dãy các
+    khoảng tin cậy $(L_n, U_n)$ được tạo từ $n$ mẫu đầu và đảm bảo bao phủ đồng
+    thời: $\prob(\forall t \ge 1 : \theta \in (L_n, U_n)) \ge 1 - \alpha$.
   \end{defn}
 
   Định nghĩa trên tương đương với một trong các tính chất sau: \begin{itemize}
@@ -103,7 +103,7 @@
     chặn trong $[-1, 1]$ thì \begin{equation}
       \frac{ \sum_{i = 1}^n X_i }{ n } \pm 1.71 \sqrt{ \frac{ \log\log(2n) +
       0.72 \log ( 10.4 / \alpha ) }{ n } }
-    \end{equation} là một $(1 - \alpha)$ confidence sequence cho $\mu$, tương
+    \end{equation} là một $(1 - \alpha)$-dãy tin cậy cho $\mu$, tương
     tự như \begin{equation}
       \bigcap_{s \le n} \frac{ \sum_{i = 1}^n X_i }{ n } \pm 1.71 \sqrt{ \frac{
         \log\log(2n) + 0.72 \log ( 10.4 / \alpha ) }{ n } }.
